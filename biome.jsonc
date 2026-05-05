@@ -1,0 +1,49 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "extends": [
+    "ultracite/biome/core",
+    "ultracite/biome/react",
+    "ultracite/biome/next",
+    "ultracite/biome/vitest"
+  ],
+  "assist": {
+    "actions": {
+      "source": {
+        "useSortedInterfaceMembers": "off"
+      }
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "attributePosition": "multiline",
+      "bracketSameLine": false,
+      "bracketSpacing": true,
+      "expand": "always",
+      "indentStyle": "space",
+      "indentWidth": 2,
+      "lineEnding": "auto",
+      "lineWidth": 80,
+      "trailingNewline": true,
+      "arrowParentheses": "always",
+      "jsxQuoteStyle": "double",
+      "operatorLinebreak": "after",
+      "quoteProperties": "asNeeded",
+      "quoteStyle": "double",
+      "semicolons": "asNeeded",
+      "trailingCommas": "all"
+    }
+  },
+  "formatter": {
+    "attributePosition": "multiline",
+    "bracketSameLine": false,
+    "bracketSpacing": true,
+    "expand": "always",
+    "formatWithErrors": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineEnding": "auto",
+    "lineWidth": 80,
+    "trailingNewline": true,
+    "useEditorconfig": false
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "backend",
+  "version": "1.0.50",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "bun run --watch src/index.ts",
+    "db:generate": "bunx --bun prisma generate",
+    "auth:generate": "bunx --bun auth@latest generate"
+  },
+  "dependencies": {
+    "@better-auth/prisma-adapter": "^1.6.9",
+    "@elysiajs/cors": "^1.4.2",
+    "@prisma/adapter-libsql": "^7.8.0",
+    "@prisma/client": "^7.8.0",
+    "better-auth": "^1.6.9",
+    "elysia": "latest"
+  },
+  "devDependencies": {
+    "bun-types": "latest",
+    "prisma": "^7.8.0"
+  },
+  "module": "src/index.js"
+}
