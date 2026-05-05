@@ -1,6 +1,5 @@
 import type { User as PrismaUser } from "../generated/prisma/client"
 import { prisma } from "../lib/prisma"
-import { NotFoundError } from "../utils/not-found-error"
 import type { User } from "./entities"
 
 interface UserService {
@@ -42,7 +41,7 @@ export const userService: UserService = {
       },
     })
     if (!user) {
-      throw new NotFoundError("User not found")
+      throw new Error("User not found")
     }
     return prismaUserToUser(user)
   },

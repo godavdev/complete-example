@@ -1,7 +1,6 @@
 import type { Prettify } from "better-auth"
 import type { Post as PrismaPost } from "../generated/prisma/client"
 import { prisma } from "../lib/prisma"
-import { NotFoundError } from "../utils/not-found-error"
 import type { Post } from "./entities"
 
 interface PostService {
@@ -81,7 +80,7 @@ export const postService: PostService = {
       },
     })
     if (!post) {
-      throw new NotFoundError("Post not found")
+      throw new Error("Post not found")
     }
     return prismaPostToPost(post)
   },

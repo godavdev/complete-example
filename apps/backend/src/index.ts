@@ -5,11 +5,18 @@ import { posts } from "./posts"
 import { users } from "./users"
 
 const app = new Elysia()
-  .use(cors())
+  .use(
+    cors({
+      origin: [
+        "http://localhost:3000",
+      ],
+      credentials: true,
+    }),
+  )
   .use(auth)
   .use(posts)
   .use(users)
-  .listen(3000)
+  .listen(process.env.PORT ?? 3000)
 
 console.log(
   `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`,

@@ -32,6 +32,7 @@ export const signUp = async ({
     name,
   })
   if (error) {
+    console.log("Error signing up:", error)
     throw new Error("Failed to sign up")
   }
   return data
