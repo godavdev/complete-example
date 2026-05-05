@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { JetBrains_Mono } from "next/font/google"
 import "./globals.css"
 import { cn } from "@/lib/utils"
+import { Toaster } from "@/components/ui/sonner"
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: [
@@ -12,8 +13,7 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: "Todo with auth",
-  description:
-    "A simple todo app with authentication",
+  description: "A simple todo app with authentication",
 }
 
 export default function RootLayout({
@@ -26,7 +26,10 @@ export default function RootLayout({
       className={cn("h-full", "font-mono", jetbrainsMono.variable)}
       lang="es"
     >
-      <body className="flex min-h-full flex-col">{children}</body>
+      <body className="flex min-h-full flex-col">
+        {children}
+        <Toaster />
+      </body>
     </html>
   )
 }
