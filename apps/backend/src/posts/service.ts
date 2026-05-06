@@ -1,7 +1,7 @@
+import type { Post } from "@repo/domain"
 import type { Prettify } from "better-auth"
 import type { Prisma } from "../generated/prisma/client"
 import { prisma } from "../lib/prisma"
-import type { Post } from "./entities"
 
 interface PostService {
   list: ({

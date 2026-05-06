@@ -1,4 +1,4 @@
-import type { User } from "../users/entities"
+import type { User } from "./user"
 
 export interface Post {
   id: string

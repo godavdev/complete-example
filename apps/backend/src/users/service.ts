@@ -1,6 +1,6 @@
+import type { User } from "@repo/domain"
 import type { User as PrismaUser } from "../generated/prisma/client"
 import { prisma } from "../lib/prisma"
-import type { User } from "./entities"
 
 interface UserService {
   list: ({
