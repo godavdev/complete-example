@@ -1,5 +1,6 @@
 "use client"
 
+import type { Post } from "@repo/domain"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { Trash2 } from "lucide-react"
 import Link from "next/link"
@@ -14,9 +15,6 @@ import {
 } from "@/components/ui/card"
 import { getCurrentUser } from "@/feats/auth/auth-services"
 import { deletePostOptions } from "@/options"
-import type { listPostsService } from "@/services"
-
-type Post = Awaited<ReturnType<typeof listPostsService>>[number]
 
 export const PostCard = ({ post }: { post: Post }) => {
   const queryClient = useQueryClient()
@@ -33,11 +31,6 @@ export const PostCard = ({ post }: { post: Post }) => {
       queryClient,
       onSuccess: () => {
         toast.success("Post deleted")
-        queryClient.invalidateQueries({
-          queryKey: [
-            "posts",
-          ],
-        })
       },
       onError: () => toast.error("Failed to delete post"),
     }),

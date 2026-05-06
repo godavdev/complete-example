@@ -37,7 +37,8 @@
     "elysia": "^1.4.28",
     "tailwindcss": "^4",
     "typescript": "^5",
-    "@types/bun": "^1.3.13"
+    "@types/bun": "^1.3.13",
+    "@repo/domain": "*"
   },
   "ignoreScripts": [
     "sharp",

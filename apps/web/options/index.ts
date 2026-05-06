@@ -1,7 +1,10 @@
 import { initOptions } from "@repo/shared"
-import { postService } from "@/services"
+import { services } from "@/services"
 export const {
-  create: createPostOptions,
-  list: listPostsOptions,
-  delete: deletePostOptions,
-} = initOptions.posts(postService)
+  posts: {
+    create: createPostOptions,
+    list: listPostsOptions,
+    delete: deletePostOptions,
+  },
+  users: { findById: findUserByIdOptions },
+} = initOptions(services)
