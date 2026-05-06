@@ -9,11 +9,6 @@ const createPostBody = t.Object({
   description: t.Optional(t.String()),
 })
 
-const updatePostBody = t.Object({
-  title: t.Optional(t.String()),
-  description: t.Optional(t.String()),
-})
-
 export const posts = new Elysia({
   prefix: "/posts",
 })
@@ -31,7 +26,11 @@ export const posts = new Elysia({
     },
   )
   .get("/", async ({ query }) => await postService.list(query), {
-    query: paginationQuery,
+    query: t.Object({
+      userId: t.Optional(t.String()),
+      ...paginationQuery.properties,
+    }),
+
     withAuth: true,
   })
   .get(
@@ -41,20 +40,6 @@ export const posts = new Elysia({
         id,
       }),
     {
-      params: idParams,
-      withAuth: true,
-    },
-  )
-  .patch(
-    "/:id",
-    async ({ body, params: { id }, user }) =>
-      await postService.update({
-        id,
-        ...body,
-        userId: user.id,
-      }),
-    {
-      body: updatePostBody,
       params: idParams,
       withAuth: true,
     },

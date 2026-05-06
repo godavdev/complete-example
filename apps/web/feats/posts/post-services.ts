@@ -20,14 +20,17 @@ export const createPostService = async ({
 export const listPostsService = async ({
   offset,
   limit,
+  userId,
 }: {
   offset?: number
   limit?: number
+  userId?: string
 }) => {
   const { data, error } = await api.posts.get({
     query: {
       limit,
       offset,
+      userId,
     },
   })
   if (error) {
@@ -44,29 +47,6 @@ export const getPostByIdService = async ({ id }: { id: string }) => {
     .get()
   if (error) {
     throw new Error("Failed to get post")
-  }
-  return data
-}
-
-export const updatePostService = async ({
-  id,
-  title,
-  description,
-}: {
-  id: string
-  title?: string
-  description?: string
-}) => {
-  const { data, error } = await api
-    .posts({
-      id,
-    })
-    .patch({
-      title,
-      description,
-    })
-  if (error) {
-    throw new Error("Failed to update post")
   }
   return data
 }
