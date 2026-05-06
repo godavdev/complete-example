@@ -29,6 +29,7 @@ function RootLayoutContent() {
     <Stack
       screenOptions={{
         headerShown: false,
+        animation: "none",
       }}
     />
   )

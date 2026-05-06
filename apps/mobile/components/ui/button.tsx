@@ -65,7 +65,7 @@ function getVariantStyles(
     outline: colors.foreground,
     secondary: colors.secondaryForeground,
     ghost: colors.foreground,
-    destructive: colors.destructive,
+    destructive: colors.destructiveForeground,
     link: colors.primary,
   }
 
