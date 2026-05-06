@@ -55,6 +55,9 @@ export const postService: PostService = {
       include: {
         user: true,
       },
+      orderBy: {
+        createdAt: "desc",
+      },
     })
     return posts.map(prismaPostToPost)
   },

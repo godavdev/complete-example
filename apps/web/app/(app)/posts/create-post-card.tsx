@@ -16,7 +16,7 @@ import {
 import { Field, FieldError, FieldGroup } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { createPostService } from "@/feats/posts/post-services"
+import { createPostService } from "@/services"
 
 const schema = z.object({
   title: z.string().min(1, "Title is required"),

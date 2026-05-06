@@ -13,8 +13,8 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { getCurrentUser } from "@/feats/auth/auth-services"
-import type { listPostsService } from "@/feats/posts/post-services"
-import { deletePostService } from "@/feats/posts/post-services"
+import type { listPostsService } from "@/services"
+import { deletePostService } from "@/services"
 
 type Post = Awaited<ReturnType<typeof listPostsService>>[number]
 
@@ -48,8 +48,8 @@ export const PostCard = ({ post }: { post: Post }) => {
       <CardHeader className="flex flex-row items-start justify-between space-y-0 pb-2">
         <div className="flex flex-col">
           <Link
-            href={`/users?id=${post.user.id}`}
             className="font-semibold hover:underline"
+            href={`/users?id=${post.user.id}`}
           >
             {post.user.name}
           </Link>

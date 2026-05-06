@@ -1,10 +1,9 @@
 "use client"
 
 import { useQuery } from "@tanstack/react-query"
-import { listPostsService } from "@/feats/posts/post-services"
+import { listPostsService } from "@/services"
 import { PostCard } from "./post-card"
 
-// import { PostCard } from "./post-card"
 
 export const PostsFeed = ({ userId }: { userId?: string } = {}) => {
   const {

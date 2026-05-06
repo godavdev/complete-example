@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query"
 import { useSearchParams } from "next/navigation"
 import { Suspense } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { getUserByIdService } from "@/feats/users/user-services"
+import { findUserByIdService } from "@/services"
 import { PostsFeed } from "../posts/feed"
 
 const UserProfile = () => {
@@ -21,7 +21,7 @@ const UserProfile = () => {
       id,
     ],
     queryFn: async () =>
-      await getUserByIdService({
+      await findUserByIdService({
         id: id ?? "",
       }),
     enabled: !!id,
