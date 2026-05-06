@@ -30,6 +30,7 @@ function RootLayoutContent() {
       screenOptions={{
         headerShown: false,
         animation: "none",
+        gestureEnabled: false,
       }}
     />
   )
