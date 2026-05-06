@@ -72,12 +72,14 @@ export const updatePostService = async ({
 }
 
 export const deletePostService = async ({ id }: { id: string }) => {
+  console.log("Deleting post with id:", id)
   const { data, error } = await api
     .posts({
       id,
     })
     .delete()
   if (error) {
+    console.log("Failed to delete post - error:", error)
     throw new Error("Failed to delete post")
   }
   return data
