@@ -40,8 +40,8 @@ const UserProfile = () => {
   }
 
   return (
-    <div className="container mx-auto py-8">
-      <Card className="mx-auto max-w-xl">
+    <div className="mx-auto flex w-full max-w-2xl flex-col gap-6 px-4 py-6 md:px-0">
+      <Card>
         <CardHeader>
           <CardTitle className="text-2xl">{user.name}</CardTitle>
         </CardHeader>
@@ -55,8 +55,8 @@ const UserProfile = () => {
         </CardContent>
       </Card>
 
-      <div className="mx-auto mt-8 max-w-xl">
-        <h2 className="mb-4 font-bold text-xl">Posts by {user.name}</h2>
+      <div className="flex flex-col gap-4">
+        <h2 className="font-bold text-xl">Posts by {user.name}</h2>
         <PostsFeed userId={user.id} />
       </div>
     </div>
