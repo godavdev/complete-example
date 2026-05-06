@@ -1,13 +1,15 @@
-import { getServices } from "@repo/shared"
+import { initServices } from "@repo/shared"
 export const {
-  posts: {
-    create: createPostService,
-    list: listPostsService,
-    delete: deletePostService,
-  },
+  posts: postService,
   users: { findById: findUserByIdService },
-} = getServices("http://localhost:8000", {
+} = initServices("http://localhost:8000", {
   fetch: {
     credentials: "include",
   },
 })
+
+export const {
+  create: createPostService,
+  list: listPostsService,
+  delete: deletePostService,
+} = postService

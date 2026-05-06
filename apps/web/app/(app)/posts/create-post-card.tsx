@@ -16,7 +16,7 @@ import {
 import { Field, FieldError, FieldGroup } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { createPostService } from "@/services"
+import { createPostOptions } from "@/options"
 
 const schema = z.object({
   title: z.string().min(1, "Title is required"),
@@ -37,19 +37,14 @@ export const CreatePostCard = () => {
   const queryClient = useQueryClient()
 
   const mutation = useMutation({
-    mutationFn: createPostService,
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({
-        queryKey: [
-          "posts",
-        ],
-      })
-      form.reset()
-      toast.success("Post created successfully!")
-    },
-    onError: () => {
-      toast.error("Failed to create post")
-    },
+    ...createPostOptions({
+      queryClient,
+      onSuccess: () => {
+        form.reset()
+        toast.success("Post created successfully!")
+      },
+      onError: () => toast.error("Failed to create post"),
+    }),
   })
 
   const onSubmit = form.handleSubmit(async (data) => {

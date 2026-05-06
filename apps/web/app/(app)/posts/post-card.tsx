@@ -13,8 +13,8 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { getCurrentUser } from "@/feats/auth/auth-services"
+import { deletePostOptions } from "@/options"
 import type { listPostsService } from "@/services"
-import { deletePostService } from "@/services"
 
 type Post = Awaited<ReturnType<typeof listPostsService>>[number]
 
@@ -29,16 +29,18 @@ export const PostCard = ({ post }: { post: Post }) => {
   })
 
   const { mutate: deletePost, isPending } = useMutation({
-    mutationFn: deletePostService,
-    onSuccess: () => {
-      toast.success("Post deleted")
-      queryClient.invalidateQueries({
-        queryKey: [
-          "posts",
-        ],
-      })
-    },
-    onError: () => toast.error("Failed to delete post"),
+    ...deletePostOptions({
+      queryClient,
+      onSuccess: () => {
+        toast.success("Post deleted")
+        queryClient.invalidateQueries({
+          queryKey: [
+            "posts",
+          ],
+        })
+      },
+      onError: () => toast.error("Failed to delete post"),
+    }),
   })
 
   const isMyPost = currentUser?.id === post.user.id

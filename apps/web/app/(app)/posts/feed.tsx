@@ -1,9 +1,8 @@
 "use client"
 
 import { useQuery } from "@tanstack/react-query"
-import { listPostsService } from "@/services"
+import { listPostsOptions } from "@/options"
 import { PostCard } from "./post-card"
-
 
 export const PostsFeed = ({ userId }: { userId?: string } = {}) => {
   const {
@@ -11,16 +10,9 @@ export const PostsFeed = ({ userId }: { userId?: string } = {}) => {
     isPending,
     error,
   } = useQuery({
-    queryKey: [
-      "posts",
+    ...listPostsOptions({
       userId,
-    ],
-    queryFn: async () => {
-      const res = await listPostsService({
-        userId,
-      })
-      return res
-    },
+    }),
   })
 
   if (error) {
