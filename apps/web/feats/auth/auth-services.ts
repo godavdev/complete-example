@@ -53,16 +53,6 @@ export const signOut = async () => {
   }
 }
 
-export const signInWithGitHub = async () => {
-  const { error } = await authClient.signIn.social({
-    provider: "github",
-  })
-  if (error) {
-    console.log("Error signing in with GitHub:", error)
-    throw new Error("Failed to sign in with GitHub")
-  }
-}
-
 export const getCurrentUser = async () => {
   const { error, data } = await authClient.getSession()
   if (error) {
