@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       router.replace("/sign-in")
     }
     if (data && publicRoutes.includes(pathname)) {
-      router.replace("/")
+      router.replace("/posts")
     }
   }, [
     error,

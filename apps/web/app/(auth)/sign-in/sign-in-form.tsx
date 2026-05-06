@@ -61,7 +61,7 @@ export const SignInForm = () => {
     try {
       const userData = await mutation.mutateAsync(data)
       toast(`You are signed in as: ${JSON.stringify(userData.name)}`)
-      router.replace("/")
+      router.replace("/posts")
     } catch (error) {
       console.log("Error signing in:", error)
       toast.error("An error occurred while signing in.")

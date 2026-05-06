@@ -63,7 +63,7 @@ export const SignUpForm = () => {
     try {
       const userData = await mutation.mutateAsync(data)
       toast(`You submitted the following values: ${JSON.stringify(userData)}`)
-      router.replace("/")
+      router.replace("/posts")
     } catch (error) {
       console.log("Error signing up:", error)
       toast.error("An error occurred while signing up.")
