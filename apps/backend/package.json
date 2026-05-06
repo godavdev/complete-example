@@ -2,10 +2,12 @@
   "name": "backend",
   "version": "1.0.50",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "bun run --watch src/index.ts",
     "db:generate": "bunx --bun prisma generate",
-    "auth:generate": "bunx --bun auth@latest generate"
+    "db:push":"bunx --bun prisma db push --force-reset",
+    "db:reset":"bun run db:generate && bun run db:push",
+    "auth:generate": "bunx --bun auth@latest generate",
+    "postinstall": "bun run db:generate"
   },
   "dependencies": {
     "@better-auth/prisma-adapter": "^1.6.9",

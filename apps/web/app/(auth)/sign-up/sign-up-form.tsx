@@ -62,7 +62,7 @@ export const SignUpForm = () => {
   const onSubmit = form.handleSubmit(async (data) => {
     try {
       const userData = await mutation.mutateAsync(data)
-      toast(`You submitted the following values: ${JSON.stringify(userData)}`)
+      toast(`Welcome, ${userData.name}! Your account has been created.`)
       router.replace("/posts")
     } catch (error) {
       console.log("Error signing up:", error)
