@@ -1,7 +1,8 @@
+/** biome-ignore-all lint/performance/noNamespaceImport: <explanation> */
 "use client"
 
 import { Stack } from "expo-router"
-import SplashScreen from "expo-splash-screen"
+import * as SplashScreen from "expo-splash-screen"
 import { useEffect, useState } from "react"
 import { AuthProvider, useAuth } from "../context/auth-context"
 

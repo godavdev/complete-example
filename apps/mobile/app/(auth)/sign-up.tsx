@@ -39,7 +39,8 @@ export default function SignUpScreen() {
       const user = await signUp(data)
       setUser(user)
       router.replace("/(app)")
-    } catch {
+    } catch (error) {
+      console.log("Error signing up:", error)
       Alert.alert("Error", "No se pudo crear la cuenta")
     }
   })

@@ -39,7 +39,8 @@ export default function SignInScreen() {
       const user = await signIn(data)
       setUser(user)
       router.replace("/(app)")
-    } catch {
+    } catch (error) {
+      console.log("Error signing in:", error)
       Alert.alert("Error", "Credenciales inválidas")
     }
   }

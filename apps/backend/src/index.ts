@@ -9,6 +9,9 @@ const app = new Elysia()
     cors({
       origin: [
         "http://localhost:3000",
+        "http://localhost:8081",
+        "mobile://*",
+        "exp://**",
       ],
       credentials: true,
     }),
