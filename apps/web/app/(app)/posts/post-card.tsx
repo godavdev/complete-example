@@ -2,6 +2,7 @@
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { Trash2 } from "lucide-react"
+import Link from "next/link"
 import { toast } from "sonner"
 import { Button } from "@/components/ui/button"
 import {
@@ -46,7 +47,12 @@ export const PostCard = ({ post }: { post: Post }) => {
     <Card>
       <CardHeader className="flex flex-row items-start justify-between space-y-0 pb-2">
         <div className="flex flex-col">
-          <span className="font-semibold">{post.user.name}</span>
+          <Link
+            href={`/users?id=${post.user.id}`}
+            className="font-semibold hover:underline"
+          >
+            {post.user.name}
+          </Link>
           <span className="text-muted-foreground text-sm">
             {post.user.email}
           </span>
