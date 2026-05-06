@@ -138,7 +138,7 @@ export function Button({
         >
           Loading...
         </Text>
-      ) : typeof children === "string" ? (
+      ) : (
         <Text
           style={[
             styles.text,
@@ -150,17 +150,13 @@ export function Button({
         >
           {children}
         </Text>
-      ) : (
-        children
       )}
-      )
     </Pressable>
   )
 }
 
 const styles = StyleSheet.create({
   button: {
-    borderRadius: 32,
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",

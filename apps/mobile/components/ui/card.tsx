@@ -125,7 +125,6 @@ export function CardFooter({ style, ...props }: CardFooterProps) {
 
 const styles = StyleSheet.create({
   card: {
-    borderRadius: 32,
     padding: 24,
     gap: 24,
     shadowColor: "#000",

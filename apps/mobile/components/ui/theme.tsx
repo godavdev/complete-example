@@ -43,13 +43,13 @@ export const darkColors = {
 }
 
 export const borderRadius = {
-  sm: 8,
-  md: 12,
-  lg: 16,
-  xl: 20,
-  "2xl": 24,
-  "4xl": 32,
-  full: 9999,
+  sm: 0,
+  md: 0,
+  lg: 0,
+  xl: 0,
+  "2xl": 0,
+  "4xl": 0,
+  full: 0,
 }
 
 export const spacing = {

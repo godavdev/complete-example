@@ -35,7 +35,6 @@ export function Textarea({ error, style, ...props }: TextareaProps) {
 const styles = StyleSheet.create({
   textarea: {
     minHeight: 80,
-    borderRadius: 16,
     borderWidth: 1,
     padding: 14,
     fontSize: 16,

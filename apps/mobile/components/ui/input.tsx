@@ -33,7 +33,6 @@ export function Input({ error, style, ...props }: InputProps) {
 const styles = StyleSheet.create({
   input: {
     height: 44,
-    borderRadius: 20,
     borderWidth: 1,
     paddingHorizontal: 14,
     fontSize: 16,
