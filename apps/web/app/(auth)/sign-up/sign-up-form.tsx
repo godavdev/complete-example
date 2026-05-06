@@ -1,6 +1,8 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { useRouter } from "next/dist/client/components/navigation"
 import Link from "next/link"
 import { Controller, useForm } from "react-hook-form"
 import { toast } from "sonner"
@@ -22,7 +24,7 @@ import {
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
-import { signUp } from "@/services/auth-services"
+import { signUp } from "@/feats/auth/auth-services"
 
 const schema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -43,11 +45,25 @@ export const SignUpForm = () => {
       password: "",
     },
   })
+  const queryClient = useQueryClient()
+  const router = useRouter()
+
+  const mutation = useMutation({
+    mutationFn: signUp,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: [
+          "auth",
+        ],
+      })
+    },
+  })
 
   const onSubmit = form.handleSubmit(async (data) => {
     try {
-      const userData = await signUp(data)
+      const userData = await mutation.mutateAsync(data)
       toast(`You submitted the following values: ${JSON.stringify(userData)}`)
+      router.replace("/")
     } catch (error) {
       console.log("Error signing up:", error)
       toast.error("An error occurred while signing up.")

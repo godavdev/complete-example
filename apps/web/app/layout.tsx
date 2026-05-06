@@ -1,8 +1,10 @@
 import type { Metadata } from "next"
 import { JetBrains_Mono } from "next/font/google"
 import "./globals.css"
-import { cn } from "@/lib/utils"
 import { Toaster } from "@/components/ui/sonner"
+import { cn } from "@/lib/utils"
+import { AuthProvider } from "./auth-provider"
+import { QueryProvider } from "./query-provider"
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: [
@@ -12,8 +14,8 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "Todo with auth",
-  description: "A simple todo app with authentication",
+  title: "Posts with auth",
+  description: "A simple posts app with authentication",
 }
 
 export default function RootLayout({
@@ -27,8 +29,12 @@ export default function RootLayout({
       lang="es"
     >
       <body className="flex min-h-full flex-col">
-        {children}
-        <Toaster />
+        <QueryProvider>
+          <AuthProvider>
+            {children}
+            <Toaster />
+          </AuthProvider>
+        </QueryProvider>
       </body>
     </html>
   )

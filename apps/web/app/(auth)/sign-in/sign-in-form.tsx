@@ -1,7 +1,9 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { Controller, useForm } from "react-hook-form"
 import { toast } from "sonner"
 import z from "zod"
@@ -22,6 +24,7 @@ import {
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
+import { signIn } from "@/feats/auth/auth-services"
 
 const schema = z.object({
   email: z.email(),
@@ -40,9 +43,30 @@ export const SignInForm = () => {
     },
   })
 
-  function onSubmit(data: z.infer<typeof schema>) {
-    toast(`You submitted the following values: ${JSON.stringify(data)}`)
-  }
+  const queryClient = useQueryClient()
+  const router = useRouter()
+
+  const mutation = useMutation({
+    mutationFn: signIn,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: [
+          "auth",
+        ],
+      })
+    },
+  })
+
+  const onSubmit = form.handleSubmit(async (data) => {
+    try {
+      const userData = await mutation.mutateAsync(data)
+      toast(`You are signed in as: ${JSON.stringify(userData.name)}`)
+      router.replace("/")
+    } catch (error) {
+      console.log("Error signing in:", error)
+      toast.error("An error occurred while signing in.")
+    }
+  })
 
   return (
     <Card className="w-full sm:max-w-md">
@@ -53,7 +77,7 @@ export const SignInForm = () => {
       <CardContent>
         <form
           id={ID}
-          onSubmit={form.handleSubmit(onSubmit)}
+          onSubmit={onSubmit}
         >
           <FieldGroup>
             <Controller

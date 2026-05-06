@@ -18,10 +18,18 @@ export const posts = new Elysia({
   prefix: "/posts",
 })
   .use(authMacros)
-  .post("/", async ({ body }) => await postService.create(body), {
-    body: createPostBody,
-    withAuth: true,
-  })
+  .post(
+    "/",
+    async ({ body, user }) =>
+      await postService.create({
+        ...body,
+        userId: user.id,
+      }),
+    {
+      body: createPostBody,
+      withAuth: true,
+    },
+  )
   .get("/", async ({ query }) => await postService.list(query), {
     query: paginationQuery,
     withAuth: true,
@@ -39,10 +47,11 @@ export const posts = new Elysia({
   )
   .patch(
     "/:id",
-    async ({ body, params: { id } }) =>
+    async ({ body, params: { id }, user }) =>
       await postService.update({
         id,
         ...body,
+        userId: user.id,
       }),
     {
       body: updatePostBody,
@@ -52,9 +61,10 @@ export const posts = new Elysia({
   )
   .delete(
     "/:id",
-    async ({ params: { id } }) =>
+    async ({ params: { id }, user }) =>
       await postService.delete({
         id,
+        userId: user.id,
       }),
     {
       params: idParams,

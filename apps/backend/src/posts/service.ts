@@ -1,5 +1,5 @@
 import type { Prettify } from "better-auth"
-import type { Post as PrismaPost } from "../generated/prisma/client"
+import type { Prisma } from "../generated/prisma/client"
 import { prisma } from "../lib/prisma"
 import type { Post } from "./entities"
 
@@ -12,18 +12,28 @@ interface PostService {
     limit?: number
   }) => Promise<Post[]>
   create: (
-    data: Prettify<Omit<Post, "id" | "createdAt" | "updatedAt">>,
+    data: Prettify<Omit<Post, "id" | "createdAt" | "updatedAt" | "user">> & {
+      userId: string
+    },
   ) => Promise<Post>
   update: (
     data: Prettify<
-      Partial<Omit<Post, "createdAt" | "updatedAt">> & Pick<Post, "id">
-    >,
+      Partial<Omit<Post, "createdAt" | "updatedAt" | "user">> & Pick<Post, "id">
+    > & {
+      userId: string
+    },
   ) => Promise<Post>
-  delete: ({ id }: { id: string }) => Promise<Post>
+  delete: ({ id, userId }: { id: string; userId: string }) => Promise<Post>
   findById: ({ id }: { id: string }) => Promise<Post>
 }
 
-const prismaPostToPost = (post: PrismaPost) => {
+const prismaPostToPost = (
+  post: Prisma.PostGetPayload<{
+    include: {
+      user: true
+    }
+  }>,
+): Post => {
   if (!post) {
     throw new Error("Post not found")
   }
@@ -33,6 +43,7 @@ const prismaPostToPost = (post: PrismaPost) => {
     description: post.description ?? undefined,
     createdAt: post.createdAt,
     updatedAt: post.updatedAt,
+    user: post.user,
   }
 }
 
@@ -41,6 +52,9 @@ export const postService: PostService = {
     const posts = await prisma.post.findMany({
       skip: offset,
       take: limit,
+      include: {
+        user: true,
+      },
     })
     return posts.map(prismaPostToPost)
   },
@@ -49,6 +63,10 @@ export const postService: PostService = {
       data: {
         title: data.title,
         description: data.description,
+        userId: data.userId,
+      },
+      include: {
+        user: true,
       },
     })
     return prismaPostToPost(post)
@@ -57,6 +75,10 @@ export const postService: PostService = {
     const post = await prisma.post.update({
       where: {
         id: data.id,
+        userId: data.userId,
+      },
+      include: {
+        user: true,
       },
       data: {
         title: data.title,
@@ -65,18 +87,25 @@ export const postService: PostService = {
     })
     return prismaPostToPost(post)
   },
-  delete: async ({ id }) => {
+  delete: async (data) => {
     const post = await prisma.post.delete({
       where: {
-        id,
+        id: data.id,
+        userId: data.userId,
+      },
+      include: {
+        user: true,
       },
     })
     return prismaPostToPost(post)
   },
-  findById: async ({ id }) => {
+  findById: async (data) => {
     const post = await prisma.post.findUnique({
       where: {
-        id,
+        id: data.id,
+      },
+      include: {
+        user: true,
       },
     })
     if (!post) {
