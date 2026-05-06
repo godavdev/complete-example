@@ -3,7 +3,10 @@ import { api } from "@/lib/elysia"
 export const createPostService = async ({
   title,
   description,
-}: Parameters<typeof api.posts.post>[0]) => {
+}: {
+  title: string
+  description?: string
+}) => {
   const { data, error } = await api.posts.post({
     title,
     description,
@@ -14,7 +17,13 @@ export const createPostService = async ({
   return data
 }
 
-export const listPostsService = async ({ offset, limit }: any) => {
+export const listPostsService = async ({
+  offset,
+  limit,
+}: {
+  offset?: number
+  limit?: number
+}) => {
   const { data, error } = await api.posts.get({
     query: {
       limit,
@@ -27,9 +36,7 @@ export const listPostsService = async ({ offset, limit }: any) => {
   return data ?? []
 }
 
-export const getPostByIdService = async ({
-  id,
-}: any) => {
+export const getPostByIdService = async ({ id }: { id: string }) => {
   const { data, error } = await api
     .posts({
       id,
@@ -45,7 +52,11 @@ export const updatePostService = async ({
   id,
   title,
   description,
-}: any) => {
+}: {
+  id: string
+  title?: string
+  description?: string
+}) => {
   const { data, error } = await api
     .posts({
       id,
@@ -60,16 +71,12 @@ export const updatePostService = async ({
   return data
 }
 
-export const deletePostService = async ({
-  id,
-}: any) => {
+export const deletePostService = async ({ id }: { id: string }) => {
   const { data, error } = await api
     .posts({
       id,
     })
-    .delete({
-      id,
-    })
+    .delete()
   if (error) {
     throw new Error("Failed to delete post")
   }

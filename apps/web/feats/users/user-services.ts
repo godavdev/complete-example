@@ -1,6 +1,12 @@
 import { api } from "@/lib/elysia"
 
-export const listUsersService = async ({ offset, limit }: any) => {
+export const listUsersService = async ({
+  offset,
+  limit,
+}: {
+  offset?: number
+  limit?: number
+}) => {
   const { data, error } = await api.users.get({
     query: {
       offset,
@@ -13,7 +19,7 @@ export const listUsersService = async ({ offset, limit }: any) => {
   return data ?? []
 }
 
-export const getUserByIdService = async ({ id }: any) => {
+export const getUserByIdService = async ({ id }: { id: string }) => {
   const { data, error } = await api
     .users({
       id,
