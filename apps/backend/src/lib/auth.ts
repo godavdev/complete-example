@@ -12,5 +12,7 @@ export const auth = betterAuth({
   basePath: "/",
   trustedOrigins: [
     "http://localhost:3000",
+    "mobile://*",
+    "exp://**",
   ],
 })
