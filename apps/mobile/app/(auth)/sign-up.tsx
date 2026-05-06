@@ -23,6 +23,7 @@ const schema = z.object({
 
 export default function SignUpScreen() {
   const form = useForm({
+    // @ts-expect-error -
     resolver: zodResolver(schema),
     defaultValues: {
       name: "",

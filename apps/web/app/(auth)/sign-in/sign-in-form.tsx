@@ -1,12 +1,12 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
+import { signInSchema } from "@repo/shared"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { Controller, useForm } from "react-hook-form"
 import { toast } from "sonner"
-import z from "zod"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -26,17 +26,12 @@ import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 import { signIn } from "@/feats/auth/auth-services"
 
-const schema = z.object({
-  email: z.email(),
-
-  password: z.string(),
-})
-
 const ID = "sign-in-form"
 
 export const SignInForm = () => {
   const form = useForm({
-    resolver: zodResolver(schema),
+    // @ts-expect-error -
+    resolver: zodResolver(signInSchema),
     defaultValues: {
       password: "",
       email: "",

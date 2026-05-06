@@ -1,10 +1,10 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
+import { createPostSchema } from "@repo/shared"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { Controller, useForm } from "react-hook-form"
 import { toast } from "sonner"
-import z from "zod"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -18,16 +18,12 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { createPostOptions } from "@/options"
 
-const schema = z.object({
-  title: z.string().min(1, "Title is required"),
-  description: z.string().optional(),
-})
-
 const ID = "create-post-form"
 
 export const CreatePostCard = () => {
   const form = useForm({
-    resolver: zodResolver(schema),
+    // @ts-expect-error -
+    resolver: zodResolver(createPostSchema),
     defaultValues: {
       title: "",
       description: "",

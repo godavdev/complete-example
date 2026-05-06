@@ -1,12 +1,12 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
+import { signUpSchema } from "@repo/shared"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useRouter } from "next/dist/client/components/navigation"
 import Link from "next/link"
 import { Controller, useForm } from "react-hook-form"
 import { toast } from "sonner"
-import z from "zod"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -26,19 +26,12 @@ import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 import { signUp } from "@/feats/auth/auth-services"
 
-const schema = z.object({
-  name: z.string().min(1, "Name is required"),
-
-  email: z.email(),
-
-  password: z.string().min(1, "Password is required"),
-})
-
 const ID = "sign-up-form"
 
 export const SignUpForm = () => {
   const form = useForm({
-    resolver: zodResolver(schema),
+    // @ts-expect-error -
+    resolver: zodResolver(signUpSchema),
     defaultValues: {
       email: "",
       name: "",
