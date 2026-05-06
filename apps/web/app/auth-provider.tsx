@@ -24,14 +24,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   })
   const pathname = usePathname()
   const router = useRouter()
-  console.log(
-    "AuthProvider - data:",
-    data,
-    "error:",
-    error,
-    "isPending:",
-    isPending,
-  )
+
   useEffect(() => {
     if ((error || !(data || isPending)) && protectedRoutes.includes(pathname)) {
       router.replace("/sign-in")

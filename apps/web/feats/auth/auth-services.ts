@@ -69,7 +69,6 @@ export const getCurrentUser = async () => {
     console.log("Error getting current user:", error)
     throw new Error("Failed to get current user")
   }
-  console.log("Current user data:", data)
   if (!data?.user) {
     return null
   }

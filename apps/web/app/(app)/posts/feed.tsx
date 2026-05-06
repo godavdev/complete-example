@@ -17,7 +17,6 @@ export const PostsFeed = () => {
     ],
     queryFn: async () => {
       const res = await listPostsService({})
-      console.log("Fetched posts:", res)
       return res
     },
   })
