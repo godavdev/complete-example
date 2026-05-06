@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation"
 import { Suspense } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { getUserByIdService } from "@/feats/users/user-services"
+import { PostsFeed } from "../posts/feed"
 
 const UserProfile = () => {
   const searchParams = useSearchParams()
@@ -53,6 +54,11 @@ const UserProfile = () => {
           </div>
         </CardContent>
       </Card>
+
+      <div className="mx-auto mt-8 max-w-xl">
+        <h2 className="mb-4 font-bold text-xl">Posts by {user.name}</h2>
+        <PostsFeed userId={user.id} />
+      </div>
     </div>
   )
 }

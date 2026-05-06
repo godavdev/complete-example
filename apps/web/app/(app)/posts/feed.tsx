@@ -6,7 +6,7 @@ import { PostCard } from "./post-card"
 
 // import { PostCard } from "./post-card"
 
-export const PostsFeed = () => {
+export const PostsFeed = ({ userId }: { userId?: string } = {}) => {
   const {
     data: posts,
     isPending,
@@ -14,9 +14,12 @@ export const PostsFeed = () => {
   } = useQuery({
     queryKey: [
       "posts",
+      userId,
     ],
     queryFn: async () => {
-      const res = await listPostsService({})
+      const res = await listPostsService({
+        userId,
+      })
       return res
     },
   })
