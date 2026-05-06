@@ -3,7 +3,13 @@
 
 import * as Haptics from "expo-haptics"
 import type { ReactNode } from "react"
-import { Platform, Pressable, StyleSheet, Text } from "react-native"
+import {
+  Platform,
+  Pressable,
+  StyleSheet,
+  Text,
+  type ViewStyle,
+} from "react-native"
 
 import { useTheme } from "./theme"
 
@@ -23,6 +29,7 @@ interface ButtonProps {
   loading?: boolean
   onPress?: () => void
   children: ReactNode
+  style?: ViewStyle
 }
 
 function getVariantStyles(
@@ -95,6 +102,7 @@ export function Button({
   loading = false,
   onPress,
   children,
+  style,
 }: ButtonProps) {
   const { colors } = useTheme()
   const variantStyles = getVariantStyles(variant, colors, size)
@@ -116,6 +124,7 @@ export function Button({
         {
           opacity: pressed ? 0.7 : disabled ? 0.5 : 1,
         },
+        style,
       ]}
     >
       {loading ? (

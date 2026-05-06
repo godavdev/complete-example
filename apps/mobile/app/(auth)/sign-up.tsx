@@ -3,15 +3,11 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useRouter } from "expo-router"
 import { Controller, useForm } from "react-hook-form"
-import {
-  Alert,
-  Pressable,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native"
+import { Alert, StyleSheet, View } from "react-native"
 import z from "zod"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 import { useAuth } from "../../context/auth-context"
 import { signUp } from "../../services/auth-service"
 
@@ -48,27 +44,26 @@ export default function SignUpScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Registrarse</Text>
+      <View style={styles.header}>
+        <Label style={styles.title}>Registrarse</Label>
+      </View>
       <View style={styles.form}>
         <Controller
           control={form.control}
           name="name"
           render={({ field, fieldState }) => (
-            <View>
-              <Text style={styles.label}>Nombre</Text>
-              <TextInput
+            <View style={styles.field}>
+              <Label style={styles.fieldLabel}>Nombre</Label>
+              <Input
                 {...field}
                 autoCapitalize="words"
+                error={!!fieldState.error}
                 onChangeText={field.onChange}
                 placeholder="Tu nombre"
-                style={[
-                  styles.input,
-                  fieldState.error && styles.inputError,
-                ]}
                 value={field.value}
               />
               {fieldState.error && (
-                <Text style={styles.error}>{fieldState.error.message}</Text>
+                <Label style={styles.error}>{fieldState.error.message}</Label>
               )}
             </View>
           )}
@@ -77,23 +72,20 @@ export default function SignUpScreen() {
           control={form.control}
           name="email"
           render={({ field, fieldState }) => (
-            <View>
-              <Text style={styles.label}>Email</Text>
-              <TextInput
+            <View style={styles.field}>
+              <Label style={styles.fieldLabel}>Email</Label>
+              <Input
                 {...field}
                 autoCapitalize="none"
                 autoComplete="email"
+                error={!!fieldState.error}
                 keyboardType="email-address"
                 onChangeText={field.onChange}
                 placeholder="tu@email.com"
-                style={[
-                  styles.input,
-                  fieldState.error && styles.inputError,
-                ]}
                 value={field.value}
               />
               {fieldState.error && (
-                <Text style={styles.error}>{fieldState.error.message}</Text>
+                <Label style={styles.error}>{fieldState.error.message}</Label>
               )}
             </View>
           )}
@@ -102,37 +94,29 @@ export default function SignUpScreen() {
           control={form.control}
           name="password"
           render={({ field, fieldState }) => (
-            <View>
-              <Text style={styles.label}>Contraseña</Text>
-              <TextInput
+            <View style={styles.field}>
+              <Label style={styles.fieldLabel}>Contraseña</Label>
+              <Input
                 {...field}
+                error={!!fieldState.error}
                 onChangeText={field.onChange}
                 placeholder="••••••••"
                 secureTextEntry
-                style={[
-                  styles.input,
-                  fieldState.error && styles.inputError,
-                ]}
                 value={field.value}
               />
               {fieldState.error && (
-                <Text style={styles.error}>{fieldState.error.message}</Text>
+                <Label style={styles.error}>{fieldState.error.message}</Label>
               )}
             </View>
           )}
         />
-        <Pressable
-          onPress={onSubmit}
-          style={styles.button}
-        >
-          <Text style={styles.buttonText}>Crear Cuenta</Text>
-        </Pressable>
-        <Pressable
+        <Button onPress={onSubmit}>Crear Cuenta</Button>
+        <Button
           onPress={() => router.push("/(auth)/sign-in")}
-          style={styles.link}
+          variant="link"
         >
-          <Text style={styles.linkText}>¿Ya tienes cuenta? Inicia sesión</Text>
-        </Pressable>
+          ¿Ya tienes cuenta? Inicia sesión
+        </Button>
       </View>
     </View>
   )
@@ -144,53 +128,26 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 24,
   },
+  header: {
+    marginBottom: 24,
+  },
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    marginBottom: 24,
     textAlign: "center",
   },
   form: {
     gap: 16,
   },
-  label: {
+  field: {
+    gap: 6,
+  },
+  fieldLabel: {
     fontSize: 14,
     fontWeight: "500",
-    marginBottom: 4,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 8,
-    padding: 12,
-    fontSize: 16,
-  },
-  inputError: {
-    borderColor: "#f00",
   },
   error: {
-    color: "#f00",
+    color: "#D93843",
     fontSize: 12,
-    marginTop: 4,
-  },
-  button: {
-    backgroundColor: "#007",
-    borderRadius: 8,
-    padding: 14,
-    marginTop: 8,
-  },
-  buttonText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "600",
-    textAlign: "center",
-  },
-  link: {
-    marginTop: 16,
-  },
-  linkText: {
-    color: "#007",
-    fontSize: 14,
-    textAlign: "center",
   },
 })

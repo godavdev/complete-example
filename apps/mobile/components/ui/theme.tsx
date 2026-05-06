@@ -66,7 +66,7 @@ export function useTheme() {
   const isDark = colorScheme === "dark"
 
   return {
-    colors: isDark ? darkColors : lightColors,
+    colors: lightColors,
     borderRadius,
     spacing,
     isDark,

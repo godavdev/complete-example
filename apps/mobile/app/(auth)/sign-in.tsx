@@ -4,16 +4,12 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { signInSchema } from "@repo/shared"
 import { useRouter } from "expo-router"
 import { Controller, useForm } from "react-hook-form"
-import {
-  Alert,
-  Pressable,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native"
+import { Alert, StyleSheet, View } from "react-native"
 import { useAuth } from "../../context/auth-context"
 import { signIn } from "../../services/auth-service"
+import { Label } from "@/components/ui/label"
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
 
 export default function SignInScreen() {
   const form = useForm({
@@ -41,29 +37,28 @@ export default function SignInScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Iniciar Sesión</Text>
+      <View style={styles.header}>
+        <Label style={styles.title}>Iniciar Sesión</Label>
+      </View>
       <View style={styles.form}>
         <Controller
           control={form.control}
           name="email"
           render={({ field, fieldState }) => (
-            <View>
-              <Text style={styles.label}>Email</Text>
-              <TextInput
+            <View style={styles.field}>
+              <Label style={styles.fieldLabel}>Email</Label>
+              <Input
                 {...field}
                 autoCapitalize="none"
                 autoComplete="email"
+                error={!!fieldState.error}
                 keyboardType="email-address"
                 onChangeText={field.onChange}
                 placeholder="tu@email.com"
-                style={[
-                  styles.input,
-                  fieldState.error && styles.inputError,
-                ]}
                 value={field.value}
               />
               {fieldState.error && (
-                <Text style={styles.error}>{fieldState.error.message}</Text>
+                <Label style={styles.error}>{fieldState.error.message}</Label>
               )}
             </View>
           )}
@@ -72,37 +67,29 @@ export default function SignInScreen() {
           control={form.control}
           name="password"
           render={({ field, fieldState }) => (
-            <View>
-              <Text style={styles.label}>Contraseña</Text>
-              <TextInput
+            <View style={styles.field}>
+              <Label style={styles.fieldLabel}>Contraseña</Label>
+              <Input
                 {...field}
+                error={!!fieldState.error}
                 onChangeText={field.onChange}
                 placeholder="••••••••"
                 secureTextEntry
-                style={[
-                  styles.input,
-                  fieldState.error && styles.inputError,
-                ]}
                 value={field.value}
               />
               {fieldState.error && (
-                <Text style={styles.error}>{fieldState.error.message}</Text>
+                <Label style={styles.error}>{fieldState.error.message}</Label>
               )}
             </View>
           )}
         />
-        <Pressable
-          onPress={onSubmit}
-          style={styles.button}
-        >
-          <Text style={styles.buttonText}>Entrar</Text>
-        </Pressable>
-        <Pressable
+        <Button onPress={onSubmit}>Entrar</Button>
+        <Button
           onPress={() => router.push("/(auth)/sign-up")}
-          style={styles.link}
+          variant="link"
         >
-          <Text style={styles.linkText}>¿No tienes cuenta? Regístrate</Text>
-        </Pressable>
+          ¿No tienes cuenta? Regístrate
+        </Button>
       </View>
     </View>
   )
@@ -114,53 +101,26 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 24,
   },
+  header: {
+    marginBottom: 24,
+  },
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    marginBottom: 24,
     textAlign: "center",
   },
   form: {
     gap: 16,
   },
-  label: {
+  field: {
+    gap: 6,
+  },
+  fieldLabel: {
     fontSize: 14,
     fontWeight: "500",
-    marginBottom: 4,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 8,
-    padding: 12,
-    fontSize: 16,
-  },
-  inputError: {
-    borderColor: "#f00",
   },
   error: {
-    color: "#f00",
+    color: "#D93843",
     fontSize: 12,
-    marginTop: 4,
-  },
-  button: {
-    backgroundColor: "#007",
-    borderRadius: 8,
-    padding: 14,
-    marginTop: 8,
-  },
-  buttonText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "600",
-    textAlign: "center",
-  },
-  link: {
-    marginTop: 16,
-  },
-  linkText: {
-    color: "#007",
-    fontSize: 14,
-    textAlign: "center",
   },
 })

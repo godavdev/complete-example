@@ -1,7 +1,10 @@
 "use client"
 
 import { useRouter } from "expo-router"
-import { Pressable, StyleSheet, Text, View } from "react-native"
+import { StyleSheet, View } from "react-native"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Label } from "@/components/ui/label"
 import { useAuth } from "../../context/auth-context"
 import { signOut } from "../../services/auth-service"
 
@@ -21,15 +24,22 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Bienvenido</Text>
-      <Text style={styles.name}>{user?.name}</Text>
-      <Text style={styles.email}>{user?.email}</Text>
-      <Pressable
+      <Card>
+        <CardHeader>
+          <CardTitle>Bienvenido</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Label style={styles.name}>{user?.name}</Label>
+          <Label style={styles.email}>{user?.email}</Label>
+        </CardContent>
+      </Card>
+      <Button
         onPress={handleSignOut}
         style={styles.button}
+        variant="destructive"
       >
-        <Text style={styles.buttonText}>Cerrar Sesión</Text>
-      </Pressable>
+        Cerrar Sesión
+      </Button>
     </View>
   )
 }
@@ -38,12 +48,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center",
     padding: 24,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
+    gap: 16,
   },
   name: {
     fontSize: 18,
@@ -51,18 +57,10 @@ const styles = StyleSheet.create({
   },
   email: {
     fontSize: 14,
-    color: "#666",
+    opacity: 0.7,
     marginTop: 4,
   },
   button: {
-    backgroundColor: "#d33",
-    borderRadius: 8,
-    padding: 14,
-    marginTop: 24,
-  },
-  buttonText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "600",
+    marginTop: 8,
   },
 })
