@@ -1,5 +1,5 @@
 {
-  "name": "@repo/services",
+  "name": "@repo/shared",
   "private": true,
   "exports": {
     ".": "./src/index.tsx"
@@ -9,7 +9,8 @@
     "@types/bun": "^1.3.13",
     "@types/node": "^20",
     "@types/react": "19.2.2",
-    "elysia": "^1.4.28"
+    "elysia": "^1.4.28",
+    "@repo/domain": "*"
   },
   "dependencies": {
     "@elysia/eden": "^1.4.10",
