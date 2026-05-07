@@ -154,7 +154,7 @@ export default function SignUpScreen() {
             onPress={() => router.push("/(auth)/sign-in")}
             variant="link"
           >
-            ¿Ya tienes cuenta? Inicia Sesión
+            Have an account? Sign In
           </Button>
         </View>
       </KeyboardAvoidingView>
