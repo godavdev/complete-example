@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { createPostSchema } from "@repo/shared"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { useRouter } from "expo-router"
 import { Controller, useForm } from "react-hook-form"
 import { Alert, StyleSheet, View } from "react-native"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -11,8 +12,11 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { createPostOptions } from "@/options"
 import { Button } from "../ui/button"
+import { COLOR } from "../ui/theme"
 
 export const CreatePostForm = () => {
+  const router = useRouter()
+
   const form = useForm({
     // @ts-expect-error -
     resolver: zodResolver(createPostSchema),
@@ -27,8 +31,7 @@ export const CreatePostForm = () => {
     ...createPostOptions({
       queryClient,
       onSuccess: () => {
-        form.reset()
-        Alert.alert("Success", "Post created successfully!")
+        router.back()
       },
       onError: (error) => {
         Alert.alert("Error", JSON.stringify(error))
@@ -51,6 +54,15 @@ export const CreatePostForm = () => {
           name="title"
           render={({ field, fieldState }) => (
             <View style={styles.field}>
+              <Label
+                style={[
+                  fieldState.error && {
+                    color: COLOR.destructive,
+                  },
+                ]}
+              >
+                Title
+              </Label>
               <Input
                 error={!!fieldState.error}
                 onChangeText={field.onChange}
@@ -68,6 +80,15 @@ export const CreatePostForm = () => {
           name="description"
           render={({ field, fieldState }) => (
             <View style={styles.field}>
+              <Label
+                style={[
+                  fieldState.error && {
+                    color: COLOR.destructive,
+                  },
+                ]}
+              >
+                Title
+              </Label>
               <Textarea
                 error={!!fieldState.error}
                 onChangeText={field.onChange}
@@ -97,7 +118,7 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   field: {
-    gap: 4,
+    gap: 8,
   },
   error: {
     color: "red",

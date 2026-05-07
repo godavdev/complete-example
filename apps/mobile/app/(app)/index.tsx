@@ -4,7 +4,6 @@ import { useQuery } from "@tanstack/react-query"
 import { useRouter } from "expo-router"
 import { KeyboardAvoidingView, Platform, StyleSheet, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
-import { CreatePostForm } from "@/components/posts/create-post-form"
 import { PostsFeed } from "@/components/posts/feed"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
@@ -47,8 +46,14 @@ export default function HomeScreen() {
         behavior={Platform.OS === "ios" ? "padding" : undefined}
         style={styles.container}
       >
-        <PostsFeed ListHeaderComponent={<CreatePostForm />} />
+        <PostsFeed />
       </KeyboardAvoidingView>
+      <Button
+        onPress={() => router.push("/(app)/create")}
+        pressableStyle={styles.fab}
+      >
+        Nuevo
+      </Button>
     </SafeAreaView>
   )
 }
@@ -62,7 +67,6 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    paddingHorizontal: 16,
   },
   name: {
     fontSize: 20,
@@ -70,5 +74,18 @@ const styles = StyleSheet.create({
   },
   signOutButton: {
     paddingVertical: 8,
+  },
+  fab: {
+    position: "absolute",
+    bottom: 32,
+    right: 32,
+    elevation: 4,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
   },
 })

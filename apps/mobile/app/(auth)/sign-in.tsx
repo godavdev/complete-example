@@ -16,6 +16,7 @@ import { SafeAreaView } from "react-native-safe-area-context"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { COLOR } from "@/components/ui/theme"
 import { signInOptions } from "@/options/auth-options"
 
 export default function SignInScreen() {
@@ -53,7 +54,7 @@ export default function SignInScreen() {
         style={styles.container}
       >
         <View style={styles.header}>
-          <Label style={styles.title}>Iniciar Sesión</Label>
+          <Label style={styles.title}>Sign In</Label>
         </View>
         <View style={styles.form}>
           <Controller
@@ -61,7 +62,15 @@ export default function SignInScreen() {
             name="email"
             render={({ field, fieldState }) => (
               <View style={styles.field}>
-                <Label style={styles.fieldLabel}>Email</Label>
+                <Label
+                  style={[
+                    fieldState.error && {
+                      color: COLOR.destructive,
+                    },
+                  ]}
+                >
+                  Email
+                </Label>
                 <Input
                   {...field}
                   autoCapitalize="none"
@@ -69,7 +78,7 @@ export default function SignInScreen() {
                   error={!!fieldState.error}
                   keyboardType="email-address"
                   onChangeText={field.onChange}
-                  placeholder="tu@email.com"
+                  placeholder="your@email.com"
                   value={field.value}
                 />
                 {fieldState.error && (
@@ -83,12 +92,20 @@ export default function SignInScreen() {
             name="password"
             render={({ field, fieldState }) => (
               <View style={styles.field}>
-                <Label style={styles.fieldLabel}>Contraseña</Label>
+                <Label
+                  style={[
+                    fieldState.error && {
+                      color: COLOR.destructive,
+                    },
+                  ]}
+                >
+                  Password
+                </Label>
                 <Input
                   {...field}
                   error={!!fieldState.error}
                   onChangeText={field.onChange}
-                  placeholder="••••••••"
+                  placeholder="Your password"
                   secureTextEntry
                   value={field.value}
                 />
@@ -98,12 +115,12 @@ export default function SignInScreen() {
               </View>
             )}
           />
-          <Button onPress={onSubmit}>Entrar</Button>
+          <Button onPress={onSubmit}>Sign In</Button>
           <Button
             onPress={() => router.push("/(auth)/sign-up")}
             variant="link"
           >
-            ¿No tienes cuenta? Regístrate
+            Don't have an account? Sign Up
           </Button>
         </View>
       </KeyboardAvoidingView>
@@ -129,7 +146,7 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   field: {
-    gap: 6,
+    gap: 8,
   },
   fieldLabel: {
     fontSize: 14,

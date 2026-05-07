@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
   container: {
     paddingBottom: 16,
     gap: 16,
+    paddingHorizontal: 16,
   },
   center: {
     padding: 24,

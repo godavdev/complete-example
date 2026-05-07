@@ -6,7 +6,12 @@ export const services = initServices(apiUrl, {
   fetch: {
     credentials: "omit",
   },
-  headers: {
-    Cookie: authClient.getCookie(),
+  onRequest: () => {
+    const cookie = authClient.getCookie()
+    return {
+      headers: {
+        Cookie: cookie,
+      },
+    }
   },
 })

@@ -16,6 +16,7 @@ import z from "zod"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { COLOR } from "@/components/ui/theme"
 import { signUpOptions } from "@/options/auth-options"
 
 const schema = z.object({
@@ -59,7 +60,7 @@ export default function SignUpScreen() {
         style={styles.container}
       >
         <View style={styles.header}>
-          <Label style={styles.title}>Registrarse</Label>
+          <Label style={styles.title}>Sign Up</Label>
         </View>
         <View style={styles.form}>
           <Controller
@@ -67,13 +68,21 @@ export default function SignUpScreen() {
             name="name"
             render={({ field, fieldState }) => (
               <View style={styles.field}>
-                <Label style={styles.fieldLabel}>Nombre</Label>
+                <Label
+                  style={[
+                    fieldState.error && {
+                      color: COLOR.destructive,
+                    },
+                  ]}
+                >
+                  Name
+                </Label>
                 <Input
                   {...field}
                   autoCapitalize="words"
                   error={!!fieldState.error}
                   onChangeText={field.onChange}
-                  placeholder="Tu nombre"
+                  placeholder="Your name"
                   value={field.value}
                 />
                 {fieldState.error && (
@@ -87,7 +96,15 @@ export default function SignUpScreen() {
             name="email"
             render={({ field, fieldState }) => (
               <View style={styles.field}>
-                <Label style={styles.fieldLabel}>Email</Label>
+                <Label
+                  style={[
+                    fieldState.error && {
+                      color: COLOR.destructive,
+                    },
+                  ]}
+                >
+                  Email
+                </Label>
                 <Input
                   {...field}
                   autoCapitalize="none"
@@ -95,7 +112,7 @@ export default function SignUpScreen() {
                   error={!!fieldState.error}
                   keyboardType="email-address"
                   onChangeText={field.onChange}
-                  placeholder="tu@email.com"
+                  placeholder="your@email.com"
                   value={field.value}
                 />
                 {fieldState.error && (
@@ -109,12 +126,20 @@ export default function SignUpScreen() {
             name="password"
             render={({ field, fieldState }) => (
               <View style={styles.field}>
-                <Label style={styles.fieldLabel}>Contraseña</Label>
+                <Label
+                  style={[
+                    fieldState.error && {
+                      color: COLOR.destructive,
+                    },
+                  ]}
+                >
+                  Password
+                </Label>
                 <Input
                   {...field}
                   error={!!fieldState.error}
                   onChangeText={field.onChange}
-                  placeholder="••••••••"
+                  placeholder="Your password"
                   secureTextEntry
                   value={field.value}
                 />
@@ -129,7 +154,7 @@ export default function SignUpScreen() {
             onPress={() => router.push("/(auth)/sign-in")}
             variant="link"
           >
-            ¿Ya tienes cuenta? Inicia sesión
+            ¿Ya tienes cuenta? Inicia Sesión
           </Button>
         </View>
       </KeyboardAvoidingView>
@@ -155,7 +180,7 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   field: {
-    gap: 6,
+    gap: 8,
   },
   fieldLabel: {
     fontSize: 14,
