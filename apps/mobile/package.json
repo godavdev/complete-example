@@ -47,9 +47,9 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@repo/domain": "*",
     "@types/react": "^19",
-    "typescript": "~5.9.2",
-    "@repo/domain": "*"
+    "typescript": "~5.9.2"
   },
   "private": true,
   "overrides": {

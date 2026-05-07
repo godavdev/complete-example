@@ -1,78 +1,39 @@
-import { useColorScheme } from "react-native"
-
-export const lightColors = {
+export const COLOR = {
   background: "#FFFFFF",
-  foreground: "#353535",
+  foreground: "#0A0A0A",
   card: "#FFFFFF",
-  cardForeground: "#353535",
+  cardForeground: "#0A0A0A",
   popover: "#FFFFFF",
-  popoverForeground: "#353535",
-  primary: "#353535",
-  primaryForeground: "#FCFCFC",
+  popoverForeground: "#0A0A0A",
+  primary: "#171717",
+  primaryForeground: "#FAFAFA",
   secondary: "#F5F5F5",
-  secondaryForeground: "#353535",
+  secondaryForeground: "#171717",
   muted: "#F5F5F5",
-  mutedForeground: "#8C8C8C",
+  mutedForeground: "#737373",
   accent: "#F5F5F5",
-  accentForeground: "#353535",
-  destructive: "#D93843",
+  accentForeground: "#171717",
+  destructive: "#E7000B",
   destructiveForeground: "#FCFCFC",
-  border: "#EBEBEB",
-  input: "#EBEBEB",
-  ring: "#B3B3B3",
-}
+  border: "#E5E5E5",
+  input: "#E5E5E5",
+  ring: "#A1A1A1",
+} as const
 
-export const darkColors = {
-  background: "#353535",
-  foreground: "#FCFCFC",
-  card: "#353535",
-  cardForeground: "#FCFCFC",
-  popover: "#353535",
-  popoverForeground: "#FCFCFC",
-  primary: "#EBEBEB",
-  primaryForeground: "#353535",
-  secondary: "#454545",
-  secondaryForeground: "#FCFCFC",
-  muted: "#454545",
-  mutedForeground: "#B3B3B3",
-  accent: "#454545",
-  accentForeground: "#FCFCFC",
-  destructive: "#E8686E",
-  destructiveForeground: "#FCFCFC",
-  border: "#FFFFFF1A",
-  input: "#FFFFFF26",
-  ring: "#8C8C8C",
-}
-
-export const borderRadius = {
-  sm: 0,
-  md: 0,
-  lg: 0,
-  xl: 0,
-  "2xl": 0,
-  "4xl": 0,
-  full: 0,
-}
-
-export const spacing = {
+export const SPACING = {
   xs: 4,
   sm: 8,
   md: 12,
   lg: 16,
   xl: 20,
   "2xl": 24,
-}
+} as const
 
-export function useTheme() {
-  const colorScheme = useColorScheme()
-  const isDark = colorScheme === "dark"
+export const FONT_SIZE = {
+  sm: 14,
+  md: 16,
+  lg: 18,
+  xl: 20,
+} as const
 
-  return {
-    colors: lightColors,
-    borderRadius,
-    spacing,
-    isDark,
-  }
-}
-
-export type Theme = ReturnType<typeof useTheme>
+export const FONT_FAMILY = "monospace" as const

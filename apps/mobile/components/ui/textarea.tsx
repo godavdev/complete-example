@@ -1,36 +1,29 @@
 "use client"
 
 import type { ComponentProps } from "react"
-import { Platform, StyleSheet, TextInput } from "react-native"
-
-import { useTheme } from "./theme"
+import { StyleSheet, TextInput } from "react-native"
+import { COLOR, FONT_FAMILY } from "./theme"
 
 type TextareaProps = ComponentProps<typeof TextInput> & {
   error?: boolean
 }
 
-export function Textarea({ error, style, ...props }: TextareaProps) {
-  const { colors } = useTheme()
-
-  return (
-    <TextInput
-      multiline
-      placeholderTextColor={colors.mutedForeground}
-      selectionColor={colors.ring}
-      style={[
-        styles.textarea,
-        {
-          backgroundColor: colors.input,
-          borderColor: error ? colors.destructive : "transparent",
-          color: colors.foreground,
-        },
-        style,
-      ]}
-      textAlignVertical="top"
-      {...props}
-    />
-  )
-}
+export const Textarea = ({ error, style, ...props }: TextareaProps) => (
+  <TextInput
+    multiline
+    placeholderTextColor={COLOR.mutedForeground}
+    selectionColor={COLOR.ring}
+    style={[
+      styles.textarea,
+      {
+        borderColor: error ? COLOR.destructive : COLOR.border,
+      },
+      style,
+    ]}
+    textAlignVertical="top"
+    {...props}
+  />
+)
 
 const styles = StyleSheet.create({
   textarea: {
@@ -38,6 +31,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 14,
     fontSize: 16,
-    fontFamily: Platform.OS === "ios" ? "System" : "monospace",
+    fontFamily: FONT_FAMILY,
+    backgroundColor: COLOR.input,
+    color: COLOR.foreground,
   },
 })

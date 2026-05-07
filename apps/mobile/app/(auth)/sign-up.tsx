@@ -1,6 +1,7 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useRouter } from "expo-router"
 import { Controller, useForm } from "react-hook-form"
 import { Alert, StyleSheet, View } from "react-native"
@@ -8,8 +9,7 @@ import z from "zod"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useAuth } from "../../context/auth-context"
-import { signUp } from "../../services/auth-service"
+import { signUpOptions } from "@/options/auth-options"
 
 const schema = z.object({
   name: z.string().min(1, "Nombre requerido"),
@@ -28,13 +28,12 @@ export default function SignUpScreen() {
     },
   })
 
-  const { setUser } = useAuth()
   const router = useRouter()
-
+  const queryClient = useQueryClient()
+  const mutation = useMutation(signUpOptions(queryClient))
   const onSubmit = form.handleSubmit(async (data) => {
     try {
-      const user = await signUp(data)
-      setUser(user)
+      await mutation.mutateAsync(data)
       router.replace("/(app)")
     } catch (error) {
       console.log("Error signing up:", error)

@@ -2,16 +2,15 @@
 /** biome-ignore-all lint/style/noNestedTernary: <explanation> */
 
 import * as Haptics from "expo-haptics"
-import type { ReactNode } from "react"
+import type { ComponentProps, ReactNode } from "react"
 import {
-  Platform,
   Pressable,
   StyleSheet,
   Text,
+  type TextStyle,
   type ViewStyle,
 } from "react-native"
-
-import { useTheme } from "./theme"
+import { COLOR, FONT_FAMILY, FONT_SIZE, SPACING } from "./theme"
 
 type ButtonVariant =
   | "default"
@@ -20,153 +19,108 @@ type ButtonVariant =
   | "ghost"
   | "destructive"
   | "link"
-type ButtonSize = "default" | "xs" | "sm" | "lg" | "icon" | "icon-sm"
 
-interface ButtonProps {
+const pressableStyles = StyleSheet.create({
+  base: {
+    padding: SPACING.md,
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
+  },
+  default: {
+    backgroundColor: COLOR.primary,
+  },
+  outline: {
+    backgroundColor: "transparent",
+    borderWidth: 1,
+    borderColor: COLOR.border,
+  },
+  secondary: {
+    backgroundColor: COLOR.secondary,
+  },
+  ghost: {
+    backgroundColor: "transparent",
+  },
+  destructive: {
+    backgroundColor: COLOR.destructive,
+  },
+  link: {
+    backgroundColor: "transparent",
+  },
+})
+
+const textStyles = StyleSheet.create({
+  base: {
+    fontSize: FONT_SIZE.md,
+    fontWeight: "500",
+    fontFamily: FONT_FAMILY,
+  },
+  default: {
+    color: COLOR.primaryForeground,
+  },
+  outline: {
+    color: COLOR.foreground,
+  },
+  secondary: {
+    color: COLOR.secondaryForeground,
+  },
+  ghost: {
+    color: COLOR.foreground,
+  },
+  destructive: {
+    color: COLOR.destructiveForeground,
+  },
+  link: {
+    color: COLOR.primary,
+    textDecorationLine: "underline",
+  },
+})
+
+interface ButtonProps extends Omit<ComponentProps<typeof Pressable>, "style"> {
   variant?: ButtonVariant
-  size?: ButtonSize
-  disabled?: boolean
-  loading?: boolean
   onPress?: () => void
   children: ReactNode
-  style?: ViewStyle
+  pressableStyle?: ViewStyle
+  textStyle?: TextStyle
 }
 
-function getVariantStyles(
-  variant: ButtonVariant,
-  colors: ReturnType<typeof useTheme>["colors"],
-  size: ButtonSize,
-) {
-  const base = {
-    default: {
-      backgroundColor: colors.primary,
-    },
-    outline: {
-      backgroundColor: "transparent",
-      borderWidth: 1,
-      borderColor: colors.border,
-    },
-    secondary: {
-      backgroundColor: colors.secondary,
-    },
-    ghost: {
-      backgroundColor: "transparent",
-    },
-    destructive: {
-      backgroundColor: colors.destructive,
-    },
-    link: {
-      backgroundColor: "transparent",
-    },
-  }
-
-  const textColors = {
-    default: colors.primaryForeground,
-    outline: colors.foreground,
-    secondary: colors.secondaryForeground,
-    ghost: colors.foreground,
-    destructive: colors.destructiveForeground,
-    link: colors.primary,
-  }
-
-  const height = {
-    default: 44,
-    xs: 28,
-    sm: 36,
-    lg: 48,
-    icon: 44,
-    "icon-sm": 32,
-  }
-
-  const paddingHorizontal = {
-    default: 16,
-    xs: 10,
-    sm: 12,
-    lg: 20,
-    icon: 12,
-    "icon-sm": 8,
-  }
-
-  return {
-    ...base[variant],
-    height: height[size],
-    paddingHorizontal: paddingHorizontal[size],
-    textColor: textColors[variant],
-  }
-}
-
-export function Button({
+export const Button = ({
   variant = "default",
-  size = "default",
-  disabled = false,
-  loading = false,
+  disabled,
   onPress,
   children,
-  style,
-}: ButtonProps) {
-  const { colors } = useTheme()
-  const variantStyles = getVariantStyles(variant, colors, size)
-
+  pressableStyle: overridePressableStyle,
+  textStyle: overrideTextStyle,
+  ...props
+}: ButtonProps) => {
   const handlePress = () => {
-    if (Platform.OS !== "web") {
-      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)
-    }
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)
     onPress?.()
   }
 
   return (
     <Pressable
-      disabled={disabled || loading}
-      onPress={disabled || loading ? undefined : handlePress}
+      disabled={disabled}
+      onPress={disabled ? undefined : handlePress}
       style={({ pressed }) => [
-        styles.button,
-        variantStyles,
+        pressableStyles.base,
+        pressableStyles[variant],
         {
-          opacity: pressed ? 0.7 : disabled ? 0.5 : 1,
+          opacity: pressed ? 0.8 : disabled ? 0.5 : 1,
         },
-        style,
+        overridePressableStyle,
       ]}
+      {...props}
     >
-      {loading ? (
-        <Text
-          style={[
-            styles.text,
-            {
-              color: variantStyles.textColor,
-            },
-          ]}
-        >
-          Loading...
-        </Text>
-      ) : (
-        <Text
-          style={[
-            styles.text,
-            {
-              color: variantStyles.textColor,
-            },
-            variant === "link" && styles.linkText,
-          ]}
-        >
-          {children}
-        </Text>
-      )}
+      <Text
+        style={[
+          textStyles.base,
+          textStyles[variant],
+          overrideTextStyle,
+        ]}
+      >
+        {children}
+      </Text>
     </Pressable>
   )
 }
-
-const styles = StyleSheet.create({
-  button: {
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "row",
-  },
-  text: {
-    fontSize: 14,
-    fontWeight: "500",
-    fontFamily: Platform.OS === "ios" ? "System" : "monospace",
-  },
-  linkText: {
-    textDecorationLine: "underline",
-  },
-})

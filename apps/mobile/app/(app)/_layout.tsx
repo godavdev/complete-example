@@ -1,12 +1,13 @@
 "use client"
 
+import { useQuery } from "@tanstack/react-query"
 import { Redirect, Stack } from "expo-router"
-import { useAuth } from "@/context/auth-context"
+import { getCurrentUserOptions } from "@/options/auth-options"
 
 export default function AppLayout() {
-  const { user, isLoading } = useAuth()
+  const { data, error, isPending } = useQuery(getCurrentUserOptions)
 
-  if (!(isLoading || user)) {
+  if (isPending || !data || error) {
     return <Redirect href="/(auth)/sign-in" />
   }
 

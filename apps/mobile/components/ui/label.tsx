@@ -1,33 +1,26 @@
 "use client"
 
 import type { ComponentProps } from "react"
-import { Platform, StyleSheet, Text } from "react-native"
-
-import { useTheme } from "./theme"
+import { StyleSheet, Text } from "react-native"
+import { COLOR, FONT_FAMILY } from "./theme"
 
 type LabelProps = ComponentProps<typeof Text>
 
-export function Label({ style, ...props }: LabelProps) {
-  const { colors } = useTheme()
-
-  return (
-    <Text
-      style={[
-        styles.label,
-        {
-          color: colors.foreground,
-        },
-        style,
-      ]}
-      {...props}
-    />
-  )
-}
+export const Label = ({ style, ...props }: LabelProps) => (
+  <Text
+    style={[
+      styles.label,
+      style,
+    ]}
+    {...props}
+  />
+)
 
 const styles = StyleSheet.create({
   label: {
     fontSize: 14,
     fontWeight: "500",
-    fontFamily: Platform.OS === "ios" ? "System" : "monospace",
+    fontFamily: FONT_FAMILY,
+    color: COLOR.foreground,
   },
 })

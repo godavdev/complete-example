@@ -1,27 +1,27 @@
 /** biome-ignore-all lint/performance/noNamespaceImport: <explanation> */
 "use client"
 
+import { useQuery } from "@tanstack/react-query"
 import { Stack } from "expo-router"
 import * as SplashScreen from "expo-splash-screen"
-import { useEffect, useState } from "react"
-import { AuthProvider, useAuth } from "../context/auth-context"
+import { useEffect } from "react"
+import { getCurrentUserOptions } from "@/options/auth-options"
+import { QueryProvider } from "../providers/query-provider"
 
 SplashScreen.preventAutoHideAsync()
 
 function RootLayoutContent() {
-  const { isLoading } = useAuth()
-  const [isReady, setIsReady] = useState(false)
+  const { isPending } = useQuery(getCurrentUserOptions)
 
   useEffect(() => {
-    if (!isLoading) {
+    if (!isPending) {
       SplashScreen.hideAsync()
-      setIsReady(true)
     }
   }, [
-    isLoading,
+    isPending,
   ])
 
-  if (!isReady || isLoading) {
+  if (isPending) {
     return null
   }
 
@@ -38,8 +38,8 @@ function RootLayoutContent() {
 
 export default function RootLayout() {
   return (
-    <AuthProvider>
+    <QueryProvider>
       <RootLayoutContent />
-    </AuthProvider>
+    </QueryProvider>
   )
 }

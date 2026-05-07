@@ -1,29 +1,30 @@
 "use client"
 
+import { useQuery } from "@tanstack/react-query"
 import { useRouter } from "expo-router"
 import { StyleSheet, View } from "react-native"
+import { CreatePostForm } from "@/components/posts/create-post-form"
+import { PostsFeed } from "@/components/posts/feed"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
-import { useAuth } from "../../context/auth-context"
+import { getCurrentUserOptions } from "@/options/auth-options"
 import { signOut } from "../../services/auth-service"
 
 export default function HomeScreen() {
-  const { user, setUser } = useAuth()
   const router = useRouter()
-
+  const { data: user } = useQuery(getCurrentUserOptions)
   const handleSignOut = async () => {
     try {
       await signOut()
-      setUser(null)
       router.replace("/(auth)/sign-in")
     } catch (error) {
       console.error("Error signing out:", error)
     }
   }
 
-  return (
-    <View style={styles.container}>
+  const Header = (
+    <View style={styles.headerContainer}>
       <Card>
         <CardHeader>
           <CardTitle>Bienvenido</CardTitle>
@@ -35,11 +36,18 @@ export default function HomeScreen() {
       </Card>
       <Button
         onPress={handleSignOut}
-        style={styles.button}
         variant="destructive"
       >
         Cerrar Sesión
       </Button>
+      <View style={styles.spacer} />
+      <CreatePostForm />
+    </View>
+  )
+
+  return (
+    <View style={styles.container}>
+      <PostsFeed ListHeaderComponent={Header} />
     </View>
   )
 }
@@ -47,9 +55,11 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    padding: 24,
-    gap: 16,
+    paddingHorizontal: 16,
+    paddingTop: 16,
+  },
+  headerContainer: {
+    marginBottom: 16,
   },
   name: {
     fontSize: 18,
@@ -60,7 +70,7 @@ const styles = StyleSheet.create({
     opacity: 0.7,
     marginTop: 4,
   },
-  button: {
-    marginTop: 8,
+  spacer: {
+    height: 24,
   },
 })

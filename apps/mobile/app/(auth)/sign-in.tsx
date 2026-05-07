@@ -2,14 +2,14 @@
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { signInSchema } from "@repo/shared"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useRouter } from "expo-router"
 import { Controller, useForm } from "react-hook-form"
 import { Alert, StyleSheet, View } from "react-native"
-import { useAuth } from "../../context/auth-context"
-import { signIn } from "../../services/auth-service"
-import { Label } from "@/components/ui/label"
-import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { signInOptions } from "@/options/auth-options"
 
 export default function SignInScreen() {
   const form = useForm({
@@ -20,14 +20,14 @@ export default function SignInScreen() {
       password: "",
     },
   })
+  const queryClient = useQueryClient()
+  const mutation = useMutation(signInOptions(queryClient))
 
-  const { setUser } = useAuth()
   const router = useRouter()
 
   const onSubmit = form.handleSubmit(async (data) => {
     try {
-      const user = await signIn(data)
-      setUser(user)
+      await mutation.mutateAsync(data)
       router.replace("/(app)")
     } catch (error) {
       console.log("Error signing in:", error)
