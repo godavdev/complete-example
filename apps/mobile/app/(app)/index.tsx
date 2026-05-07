@@ -7,7 +7,6 @@ import { SafeAreaView } from "react-native-safe-area-context"
 import { CreatePostForm } from "@/components/posts/create-post-form"
 import { PostsFeed } from "@/components/posts/feed"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
 import { getCurrentUserOptions } from "@/options/auth-options"
 import { signOut } from "../../services/auth-service"
@@ -24,63 +23,52 @@ export default function HomeScreen() {
     }
   }
 
-  const Header = (
-    <View style={styles.headerContainer}>
-      <Card>
-        <CardHeader>
-          <CardTitle>Bienvenido</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <Label style={styles.name}>{user?.name}</Label>
-          <Label style={styles.email}>{user?.email}</Label>
-        </CardContent>
-      </Card>
-      <Button
-        onPress={handleSignOut}
-        variant="destructive"
-      >
-        Cerrar Sesión
-      </Button>
-      <View style={styles.spacer} />
-      <CreatePostForm />
-    </View>
-  )
-
   return (
     <SafeAreaView
       style={{
         flex: 1,
       }}
     >
+      <View
+        style={[
+          styles.topBar,
+        ]}
+      >
+        <Label style={styles.name}>{user?.name}</Label>
+        <Button
+          onPress={handleSignOut}
+          pressableStyle={styles.signOutButton}
+          variant="destructive"
+        >
+          Cerrar Sesión
+        </Button>
+      </View>
       <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        behavior={Platform.OS === "ios" ? "padding" : undefined}
         style={styles.container}
       >
-        <PostsFeed ListHeaderComponent={Header} />
+        <PostsFeed ListHeaderComponent={<CreatePostForm />} />
       </KeyboardAvoidingView>
     </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
+  topBar: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: 16,
+  },
   container: {
     flex: 1,
     paddingHorizontal: 16,
-    paddingTop: 16,
-  },
-  headerContainer: {
-    marginBottom: 16,
   },
   name: {
-    fontSize: 18,
-    marginTop: 8,
+    fontSize: 20,
+    fontWeight: "bold",
   },
-  email: {
-    fontSize: 14,
-    opacity: 0.7,
-    marginTop: 4,
-  },
-  spacer: {
-    height: 24,
+  signOutButton: {
+    paddingVertical: 8,
   },
 })

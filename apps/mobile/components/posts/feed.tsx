@@ -49,7 +49,8 @@ export const PostsFeed = ({
 
 const styles = StyleSheet.create({
   container: {
-    paddingBottom: 24,
+    paddingBottom: 16,
+    gap: 16,
   },
   center: {
     padding: 24,

@@ -92,9 +92,7 @@ export const CreatePostForm = () => {
 }
 
 const styles = StyleSheet.create({
-  card: {
-    marginBottom: 24,
-  },
+  card: {},
   content: {
     gap: 16,
   },

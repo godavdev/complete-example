@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
 
 export const PostCard = ({ post }: { post: Post }) => (
-  <Card style={styles.card}>
+  <Card>
     <CardHeader>
       <CardTitle>{post.title}</CardTitle>
     </CardHeader>
@@ -15,9 +15,6 @@ export const PostCard = ({ post }: { post: Post }) => (
 )
 
 const styles = StyleSheet.create({
-  card: {
-    marginBottom: 16,
-  },
   description: {
     marginTop: 8,
     opacity: 0.8,
