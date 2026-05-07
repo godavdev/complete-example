@@ -5,9 +5,7 @@ export const authMacros = new Elysia({
   name: "authMacros",
 }).macro({
   withAuth: {
-    async resolve({ status, request: { headers }, cookie }) {
-      console.log("authMacros - withAuth - headers:", headers)
-      console.log("authMacros - withAuth - cookie:", cookie)
+    async resolve({ status, request: { headers } }) {
       const session = await auth.api.getSession({
         headers,
       })
