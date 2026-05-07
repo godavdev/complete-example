@@ -1,20 +1,18 @@
 "use client"
 
-import { StyleSheet, View } from "react-native"
+import { KeyboardAvoidingView, StyleSheet } from "react-native"
 import { CreatePostForm } from "@/components/posts/create-post-form"
 
 export default function CreatePostModal() {
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView style={styles.container}>
       <CreatePostForm />
-    </View>
+    </KeyboardAvoidingView>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    padding: 16,
     justifyContent: "center",
   },
 })

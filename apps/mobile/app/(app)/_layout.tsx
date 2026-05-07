@@ -21,7 +21,9 @@ export default function AppLayout() {
       <Stack.Screen
         name="create"
         options={{
-          presentation: "modal",
+          presentation: "formSheet",
+          sheetAllowedDetents: "fitToContents",
+          sheetGrabberVisible: true,
         }}
       />
     </Stack>
