@@ -1,13 +1,13 @@
 "use client"
 
-import { KeyboardAvoidingView, StyleSheet } from "react-native"
+import { StyleSheet, View } from "react-native"
 import { CreatePostForm } from "@/components/posts/create-post-form"
 
 export default function CreatePostModal() {
   return (
-    <KeyboardAvoidingView style={styles.container}>
+    <View style={styles.container}>
       <CreatePostForm />
-    </KeyboardAvoidingView>
+    </View>
   )
 }
 

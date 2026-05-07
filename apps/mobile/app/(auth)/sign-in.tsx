@@ -104,9 +104,11 @@ export default function SignInScreen() {
                 <Input
                   {...field}
                   error={!!fieldState.error}
+                  keyboardType="default"
                   onChangeText={field.onChange}
                   placeholder="Your password"
                   secureTextEntry
+                  
                   value={field.value}
                 />
                 {fieldState.error && (
