@@ -19,6 +19,8 @@ export const PostsFeed = ({
     ...listPostsOptions({}),
   })
 
+  console.log("PostsFeed - posts:", posts, "isPending:", isPending, "error:", error)
+
   if (error) {
     return (
       <View style={styles.center}>

@@ -5,7 +5,14 @@ import { signInSchema } from "@repo/shared"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useRouter } from "expo-router"
 import { Controller, useForm } from "react-hook-form"
-import { Alert, StyleSheet, View } from "react-native"
+import {
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+  StyleSheet,
+  View,
+} from "react-native"
+import { SafeAreaView } from "react-native-safe-area-context"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -36,62 +43,71 @@ export default function SignInScreen() {
   })
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Label style={styles.title}>Iniciar Sesión</Label>
-      </View>
-      <View style={styles.form}>
-        <Controller
-          control={form.control}
-          name="email"
-          render={({ field, fieldState }) => (
-            <View style={styles.field}>
-              <Label style={styles.fieldLabel}>Email</Label>
-              <Input
-                {...field}
-                autoCapitalize="none"
-                autoComplete="email"
-                error={!!fieldState.error}
-                keyboardType="email-address"
-                onChangeText={field.onChange}
-                placeholder="tu@email.com"
-                value={field.value}
-              />
-              {fieldState.error && (
-                <Label style={styles.error}>{fieldState.error.message}</Label>
-              )}
-            </View>
-          )}
-        />
-        <Controller
-          control={form.control}
-          name="password"
-          render={({ field, fieldState }) => (
-            <View style={styles.field}>
-              <Label style={styles.fieldLabel}>Contraseña</Label>
-              <Input
-                {...field}
-                error={!!fieldState.error}
-                onChangeText={field.onChange}
-                placeholder="••••••••"
-                secureTextEntry
-                value={field.value}
-              />
-              {fieldState.error && (
-                <Label style={styles.error}>{fieldState.error.message}</Label>
-              )}
-            </View>
-          )}
-        />
-        <Button onPress={onSubmit}>Entrar</Button>
-        <Button
-          onPress={() => router.push("/(auth)/sign-up")}
-          variant="link"
-        >
-          ¿No tienes cuenta? Regístrate
-        </Button>
-      </View>
-    </View>
+    <SafeAreaView
+      style={{
+        flex: 1,
+      }}
+    >
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.container}
+      >
+        <View style={styles.header}>
+          <Label style={styles.title}>Iniciar Sesión</Label>
+        </View>
+        <View style={styles.form}>
+          <Controller
+            control={form.control}
+            name="email"
+            render={({ field, fieldState }) => (
+              <View style={styles.field}>
+                <Label style={styles.fieldLabel}>Email</Label>
+                <Input
+                  {...field}
+                  autoCapitalize="none"
+                  autoComplete="email"
+                  error={!!fieldState.error}
+                  keyboardType="email-address"
+                  onChangeText={field.onChange}
+                  placeholder="tu@email.com"
+                  value={field.value}
+                />
+                {fieldState.error && (
+                  <Label style={styles.error}>{fieldState.error.message}</Label>
+                )}
+              </View>
+            )}
+          />
+          <Controller
+            control={form.control}
+            name="password"
+            render={({ field, fieldState }) => (
+              <View style={styles.field}>
+                <Label style={styles.fieldLabel}>Contraseña</Label>
+                <Input
+                  {...field}
+                  error={!!fieldState.error}
+                  onChangeText={field.onChange}
+                  placeholder="••••••••"
+                  secureTextEntry
+                  value={field.value}
+                />
+                {fieldState.error && (
+                  <Label style={styles.error}>{fieldState.error.message}</Label>
+                )}
+              </View>
+            )}
+          />
+          <Button onPress={onSubmit}>Entrar</Button>
+          <Button
+            onPress={() => router.push("/(auth)/sign-up")}
+            variant="link"
+          >
+            ¿No tienes cuenta? Regístrate
+          </Button>
+        </View>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   )
 }
 

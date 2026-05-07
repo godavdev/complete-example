@@ -3,6 +3,7 @@
 import { useQuery } from "@tanstack/react-query"
 import { useRouter } from "expo-router"
 import { StyleSheet, View } from "react-native"
+import { SafeAreaView } from "react-native-safe-area-context"
 import { CreatePostForm } from "@/components/posts/create-post-form"
 import { PostsFeed } from "@/components/posts/feed"
 import { Button } from "@/components/ui/button"
@@ -46,9 +47,15 @@ export default function HomeScreen() {
   )
 
   return (
-    <View style={styles.container}>
-      <PostsFeed ListHeaderComponent={Header} />
-    </View>
+    <SafeAreaView
+      style={{
+        flex: 1,
+      }}
+    >
+      <View style={styles.container}>
+        <PostsFeed ListHeaderComponent={Header} />
+      </View>
+    </SafeAreaView>
   )
 }
 
