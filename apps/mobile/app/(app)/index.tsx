@@ -2,7 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query"
 import { useRouter } from "expo-router"
-import { StyleSheet, View } from "react-native"
+import { KeyboardAvoidingView, Platform, StyleSheet, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { CreatePostForm } from "@/components/posts/create-post-form"
 import { PostsFeed } from "@/components/posts/feed"
@@ -52,9 +52,12 @@ export default function HomeScreen() {
         flex: 1,
       }}
     >
-      <View style={styles.container}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.container}
+      >
         <PostsFeed ListHeaderComponent={Header} />
-      </View>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   )
 }
