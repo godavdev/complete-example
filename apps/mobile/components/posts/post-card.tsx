@@ -1,22 +1,44 @@
 import type { Post } from "@repo/domain"
-import { StyleSheet } from "react-native"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Label } from "@/components/ui/label"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 
-export const PostCard = ({ post }: { post: Post }) => (
+export const PostCard = ({ createdAt, title, description, user }: Post) => (
   <Card>
     <CardHeader>
-      <CardTitle>{post.title}</CardTitle>
+      <CardTitle
+        style={{
+          fontSize: 14,
+        }}
+      >
+        {user.name}
+      </CardTitle>
+      <CardDescription
+        style={{
+          fontSize: 14,
+        }}
+      >
+        {user.email}
+      </CardDescription>
     </CardHeader>
     <CardContent>
-      <Label style={styles.description}>{post.description}</Label>
+      <CardTitle>{title}</CardTitle>
+      <CardDescription>{description}</CardDescription>
     </CardContent>
+    <CardFooter>
+      <CardDescription
+        style={{
+          fontSize: 12,
+          color: "#666",
+        }}
+      >
+        {new Date(createdAt).toLocaleString()}
+      </CardDescription>
+    </CardFooter>
   </Card>
 )
-
-const styles = StyleSheet.create({
-  description: {
-    marginTop: 8,
-    opacity: 0.8,
-  },
-})

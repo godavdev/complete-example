@@ -42,7 +42,12 @@ export const PostsFeed = ({
         </View>
       )}
       ListHeaderComponent={ListHeaderComponent}
-      renderItem={({ item }) => <PostCard post={item} />}
+      renderItem={({ item }) => (
+        <PostCard
+          {...item}
+          key={item.id}
+        />
+      )}
     />
   )
 }

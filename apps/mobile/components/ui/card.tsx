@@ -103,10 +103,6 @@ const styles = StyleSheet.create({
     elevation: 3,
     backgroundColor: COLOR.card,
   },
-  cardSmall: {
-    padding: 16,
-    gap: 16,
-  },
   cardHeader: {
     gap: 6,
   },
@@ -119,6 +115,7 @@ const styles = StyleSheet.create({
   cardDescription: {
     color: COLOR.mutedForeground,
     fontSize: 14,
+    fontFamily: FONT_FAMILY,
   },
   cardAction: {
     alignSelf: "flex-end",
