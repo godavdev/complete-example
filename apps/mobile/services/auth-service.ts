@@ -60,7 +60,11 @@ export const signOut = async () => {
 
 export const getSession = async (): Promise<User | null> => {
   const { error, data } = await authClient.getSession()
-  if (error || !data?.user) {
+  if (error) {
+    console.log("Error getting session:", error)
+    throw new Error(error.message || "Failed to get session")
+  }
+  if (!data?.user) {
     return null
   }
   return {
