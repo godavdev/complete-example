@@ -8,6 +8,7 @@ export default function AppLayout() {
   const { data, error, isPending } = useQuery(getCurrentUserOptions)
 
   if (isPending || !data || error) {
+    console.log("User not authenticated, redirecting to sign-in...")
     return <Redirect href="/(auth)/sign-in" />
   }
 

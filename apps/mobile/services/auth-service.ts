@@ -59,19 +59,28 @@ export const signOut = async () => {
 }
 
 export const getSession = async (): Promise<User | null> => {
-  const { error, data } = await authClient.getSession()
-  if (error) {
+  try {
+    const { error, data } = await authClient.getSession({
+      fetchOptions: {
+        timeout: 15_000,
+      },
+    })
+    if (error) {
+      console.log("Error getting session:", error)
+      throw new Error(error.message || "Failed to get session")
+    }
+    if (!data?.user) {
+      return null
+    }
+    return {
+      id: data.user.id,
+      email: data.user.email,
+      name: data.user.name,
+      createdAt: data.user.createdAt,
+      updatedAt: data.user.updatedAt,
+    }
+  } catch (error) {
     console.log("Error getting session:", error)
-    throw new Error(error.message || "Failed to get session")
-  }
-  if (!data?.user) {
-    return null
-  }
-  return {
-    id: data.user.id,
-    email: data.user.email,
-    name: data.user.name,
-    createdAt: data.user.createdAt,
-    updatedAt: data.user.updatedAt,
+    throw new Error("Failed to get session")
   }
 }

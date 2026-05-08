@@ -21,6 +21,10 @@ function RootLayoutContent() {
     isPending,
   ])
 
+  // if (error) {
+  //   throw new Error("Failed to check authentication status")
+  // }
+
   if (isPending) {
     return null
   }
