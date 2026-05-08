@@ -30,7 +30,6 @@ const ID = "sign-up-form"
 
 export const SignUpForm = () => {
   const form = useForm({
-    // @ts-expect-error -
     resolver: zodResolver(signUpSchema),
     defaultValues: {
       email: "",

@@ -21,7 +21,6 @@ import { signInOptions } from "@/options/auth-options"
 
 export default function SignInScreen() {
   const form = useForm({
-    // @ts-expect-error -
     resolver: zodResolver(signInSchema),
     defaultValues: {
       email: "",

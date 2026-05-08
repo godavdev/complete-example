@@ -30,7 +30,6 @@ const ID = "sign-in-form"
 
 export const SignInForm = () => {
   const form = useForm({
-    // @ts-expect-error -
     resolver: zodResolver(signInSchema),
     defaultValues: {
       password: "",

@@ -22,7 +22,6 @@ const ID = "create-post-form"
 
 export const CreatePostCard = () => {
   const form = useForm({
-    // @ts-expect-error -
     resolver: zodResolver(createPostSchema),
     defaultValues: {
       title: "",

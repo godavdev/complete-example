@@ -18,7 +18,6 @@ export const CreatePostForm = () => {
   const router = useRouter()
 
   const form = useForm({
-    // @ts-expect-error -
     resolver: zodResolver(createPostSchema),
     defaultValues: {
       title: "",
