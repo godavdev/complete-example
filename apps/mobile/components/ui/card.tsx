@@ -91,12 +91,12 @@ export const CardFooter = ({ style, ...props }: CardFooterProps) => (
 
 const styles = StyleSheet.create({
   card: {
-    padding: 24,
-    gap: 24,
-    shadowColor: COLOR.border,
+    padding: 18,
+    gap: 18,
+    shadowColor: COLOR.primary,
     shadowOffset: {
-      width: 0,
-      height: 2,
+      width: 4,
+      height: 4,
     },
     shadowOpacity: 0.1,
     shadowRadius: 4,

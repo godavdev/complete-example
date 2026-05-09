@@ -6,17 +6,15 @@ import { Label } from "@/components/ui/label"
 import { listPostsOptions } from "@/options"
 import { PostCard } from "./post-card"
 
-export const PostsFeed = ({
-  ListHeaderComponent,
-}: {
-  ListHeaderComponent?: React.ReactElement
-}) => {
+export const PostsFeed = ({ userId }: { userId?: string }) => {
   const {
     data: posts,
     isPending,
     error,
   } = useQuery({
-    ...listPostsOptions({}),
+    ...listPostsOptions({
+      userId,
+    }),
   })
 
   if (error) {
@@ -41,7 +39,6 @@ export const PostsFeed = ({
           )}
         </View>
       )}
-      ListHeaderComponent={ListHeaderComponent}
       renderItem={({ item }) => (
         <PostCard
           {...item}

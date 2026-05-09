@@ -27,6 +27,7 @@ export default function AppLayout() {
           sheetGrabberVisible: true,
         }}
       />
+      <Stack.Screen name="users/[userId]" />
     </Stack>
   )
 }
