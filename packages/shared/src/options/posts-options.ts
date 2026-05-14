@@ -65,7 +65,7 @@ export const initPostsOptions = (
           userId,
         ],
         queryFn: async () =>
-          postsService.list({
+          await postsService.list({
             userId,
           }),
       }),

@@ -7,9 +7,11 @@ interface PostService {
   list: ({
     offset,
     limit,
+    userId,
   }: {
     offset?: number
     limit?: number
+    userId?: string
   }) => Promise<Post[]>
   create: (
     data: Prettify<Omit<Post, "id" | "createdAt" | "updatedAt" | "user">> & {
@@ -48,10 +50,15 @@ const prismaPostToPost = (
 }
 
 export const postService: PostService = {
-  list: async ({ offset, limit }) => {
+  list: async ({ offset, limit, userId }) => {
     const posts = await prisma.post.findMany({
       skip: offset,
       take: limit,
+      where: userId
+        ? {
+            userId,
+          }
+        : undefined,
       include: {
         user: true,
       },

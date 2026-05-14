@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation"
 import { Suspense } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { findUserByIdOptions } from "@/options"
-import { PostsFeed } from "../posts/feed"
+import { PostsFeed } from "../posts/posts-feed"
 
 const UserProfile = () => {
   const searchParams = useSearchParams()
