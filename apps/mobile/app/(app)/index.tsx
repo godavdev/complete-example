@@ -1,22 +1,22 @@
 "use client"
 
-import { useQuery } from "@tanstack/react-query"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { useRouter } from "expo-router"
 import { KeyboardAvoidingView, Platform, StyleSheet, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { PostsFeed } from "@/components/posts/posts-feed"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
-import { getCurrentUserOptions } from "@/options/auth-options"
-import { signOut } from "../../services/auth-service"
+import { getCurrentUserOptions, signOutOptions } from "@/options/auth-options"
 
 export default function HomeScreen() {
   const router = useRouter()
   const { data: user } = useQuery(getCurrentUserOptions)
+  const queryClient = useQueryClient()
+  const mutation = useMutation(signOutOptions(queryClient))
   const handleSignOut = async () => {
     try {
-      await signOut()
-      router.replace("/(auth)/sign-in")
+      await mutation.mutateAsync()
     } catch (error) {
       console.error("Error signing out:", error)
     }
