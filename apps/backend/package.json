@@ -17,8 +17,7 @@
     "@prisma/client": "^7.8.0",
     "@repo/domain": "*",
     "better-auth": "^1.6.9",
-    "elysia": "latest",
-    "@sinclair/typebox": "^0.34.49"
+    "elysia": "latest"
   },
   "devDependencies": {
     "@types/bun": "^1.3.13",
