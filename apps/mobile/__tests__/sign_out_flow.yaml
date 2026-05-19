@@ -1,0 +1,7 @@
+appId: com.anonymous.mobile
+---
+- launchApp:
+    clearState: true
+- runFlow: "./sign_up_flow.yaml"
+- tapOn: "Cerrar Sesi\u00f3n"
+- assertNotVisible: "Cerrar Sesi\u00f3n"

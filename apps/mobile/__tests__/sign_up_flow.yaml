@@ -1,0 +1,16 @@
+appId: com.anonymous.mobile
+---
+- launchApp:
+    clearState: true
+- tapOn: "Don't have an account? Sign Up"
+- assertVisible: "Sign Up"
+- tapOn: "Your name"
+- inputRandomPersonName
+- tapOn: "your@email.com"
+- inputRandomEmail
+- tapOn: "Your password"
+- inputRandomText:
+    length: 8
+- back
+- tapOn: "Crear Cuenta"
+- assertNotVisible: "Crear Cuenta"
