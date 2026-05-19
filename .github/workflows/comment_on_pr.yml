@@ -27,6 +27,6 @@ jobs:
                               owner: context.repo.owner,
                               repo: context.repo.repo,
                               issue_number: context.issue.number,
-                              body: 'Hello David! Thanks for your contribution. We will review your PR soon.'
+                              body: 'Hello David! Thanks for your contribution. a We will review your PR soon.'
                           });
                       }
