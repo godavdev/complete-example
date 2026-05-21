@@ -1,6 +1,7 @@
 import { Elysia, t } from "elysia"
 import { authMacros } from "../auth/macros"
 import { idParams } from "../utils/id-params"
+import { log } from "../utils/log"
 import { paginationQuery } from "../utils/pagination-query"
 import { postService } from "./service"
 
@@ -25,14 +26,34 @@ export const posts = new Elysia({
       withAuth: true,
     },
   )
-  .get("/", async ({ query }) => await postService.list(query), {
-    query: t.Object({
-      userId: t.Optional(t.String()),
-      ...paginationQuery.properties,
-    }),
+  .get(
+    "/",
+    async ({ query, user }) => {
+      log({
+        level: "DEBUG",
+        component: "POSTS",
+        message: "Listing posts with query",
+        userId: user.id,
+      })
 
-    withAuth: true,
-  })
+      const posts = await postService.list(query)
+      log({
+        level: "DEBUG",
+        component: "POSTS",
+        message: `Number of posts retrieved: ${posts.length}`,
+        userId: user.id,
+      })
+      return posts
+    },
+    {
+      query: t.Object({
+        userId: t.Optional(t.String()),
+        ...paginationQuery.properties,
+      }),
+
+      withAuth: true,
+    },
+  )
   .get(
     "/:id",
     async ({ params: { id } }) =>
